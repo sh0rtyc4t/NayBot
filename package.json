@@ -1,0 +1,32 @@
+{
+  "name": "naybot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": ">= 16.0.0",
+    "vscode": "^1.22.0",
+    "npm": ">= 6.1.0"
+  },
+  "dependencies": {
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.25.2",
+    "eris": "^0.16.1",
+    "firebase": "^9.5.0",
+    "firebase-admin": "^10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "start": "node --expose-gc .",
+    "dev": "nodemon --expose-gc . --dev",
+    "lint": "eslint --ext .js src"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Shortcat"
+  },
+  "license": "GPLv3",
+  "description": "A discord bot using Eris"
+}
