@@ -7,7 +7,9 @@ const settings = require("./config/settings.json");
 const cmdLineArgs = process.argv.slice(2);
 
 let instance = "nay";
+// replace "nay" to your bot name
 if (cmdLineArgs.includes("--dev")) instance = "nightly";
+// if you have a test bot, replace "nightly" to your test bot name
 
 const config = {
     ...security[instance],
