@@ -631,7 +631,9 @@ to attach them to the start of each source file to most effectively
 state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-    <This software is a bot developed for the Discord application, made by DIscord inc. and is intended to introduce functionality, automation and entertainment.>
+    <This software is a bot developed for the Discord application,
+    made by Discord inc. and is intended to introduce functionality,
+    automation and entertainment.>
     Copyright (C) <2021>  <Shortcat>
 
     This program is free software: you can redistribute it and/or modify
