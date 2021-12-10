@@ -14,7 +14,9 @@ module.exports = async function () {
         if (!await hasRegistred(cmd.name)) {
             nay.createCommand({
                 name: cmd.name,
-                description: cmd.description
+                description: cmd.description,
+                // eslint-disable-next-line camelcase
+                dm_permission: cmd.DM
             });
         }
     }

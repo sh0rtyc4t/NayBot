@@ -5,13 +5,14 @@ module.exports = class Nay extends Client {
     constructor (token, ClientOptions) {
         super(token, ClientOptions);
         this.instance = ClientOptions.instance;
-        this.emojis = require("../../config/emojis.json");
-        this.commands = require("../../config/commands.json");
+        this.emojis = require(`${ctx.mainDir}/config/emojis.json`);
+        this.commands = require(`${ctx.mainDir}/config/commands.json`);
     }
 
     loadCore () {
         require(`${ctx.mainDir}/src/core/handlers/putCommands.js`)();
         require(`${ctx.mainDir}/src/core/handlers/loadEvents.js`)();
+        require(`${ctx.mainDir}/src/modules/locales.js`)();
 
         // eslint-disable-next-line new-cap
         const db = new (require(`${ctx.mainDir}/src/modules/firebase.js`))(ctx.config.firebaseConfig);

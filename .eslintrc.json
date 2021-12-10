@@ -11,7 +11,8 @@
     "globals": {
         "ctx": "readonly",
         "db": "readonly",
-        "nay": "readonly"
+        "nay": "readonly",
+        "t": "readonly"
     },
     "rules": {
         "accessor-pairs": "error",

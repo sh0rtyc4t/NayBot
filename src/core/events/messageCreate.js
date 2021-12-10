@@ -1,4 +1,8 @@
+/* eslint-disable no-unused-vars */
 const util = require("util");
+const i18 = require("i18next");
+const cld = require("child_process");
+
 module.exports = async function (message) {
     const prefix = "%";
     const content = message.content.split(" ");

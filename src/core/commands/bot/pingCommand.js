@@ -1,3 +1,3 @@
 module.exports = function (interaction) {
-    interaction.createMessage("Pong!");
+    interaction.createMessage(t("commands:ping", { latency: nay.requestHandler.latencyRef.latency }));
 };
