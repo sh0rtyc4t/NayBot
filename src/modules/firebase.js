@@ -12,6 +12,7 @@ module.exports = class Database {
     connect () {
         const fbApp = app.initializeApp(this.firebaseConfig);
         this.db = firebase.getDatabase(fbApp);
+        return this;
     }
 
     getRef (reference) {
@@ -25,13 +26,20 @@ module.exports = class Database {
         });
     }
 
-    set (reference, valueObj) {
+    set (reference, value) {
         const ref = this.getRef(reference);
-        return firebase.set(ref, valueObj);
+        return firebase.set(ref, value);
     }
 
     remove (reference) {
         const ref = this.getRef(reference);
         return firebase.remove(ref);
+    }
+
+    exists (reference) {
+        const ref = this.getRef(reference);
+        return new Promise((res, rej) => {
+            firebase.onValue(ref, snapshot => res(snapshot.exists()), rej);
+        });
     }
 };

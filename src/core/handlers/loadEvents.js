@@ -5,6 +5,6 @@ module.exports = function () {
     for (const event of eventFiles) {
         const eventName = event.slice(0, -3);
 
-        nay.on(eventName, (...params) => require(`${ctx.mainDir}/src/core/events/${event}`)(...params));
+        nay.on(eventName, require(`${ctx.mainDir}/src/core/events/${event}`));
     }
 };
