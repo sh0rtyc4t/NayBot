@@ -1,6 +1,7 @@
 module.exports = class NayUser {
     constructor (id) {
         this._id = id;
+        this.base = ctx.config.userSchema;
     }
 
     static check (id) {
@@ -8,13 +9,7 @@ module.exports = class NayUser {
     }
 
     register () {
-        const obj = {
-            commands: 1,
-            potatos: 0,
-            itens: []
-        };
-
-        db.set(`users/${this._id}`, obj);
+        db.set(`users/${this._id}`, this.base);
     }
 
 };

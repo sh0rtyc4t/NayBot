@@ -1,8 +1,12 @@
 const i18 = require("i18next");
-module.exports = function (interaction) {
-    if (!(interaction instanceof ctx.Eris.CommandInteraction)) return;
+const NayUser = require(`${ctx.mainDir}/src/utils/classes/nayUser.js`);
 
+module.exports = async function (interaction) {
+    if (!(interaction instanceof ctx.Eris.CommandInteraction)) return;
     global.t = i18.getFixedT(interaction.member.guild.preferredLocale);
+
+    if (!await NayUser.check(interaction.member.id)) new NayUser(interaction.member.id).register();
+
     const command = interaction.data.name;
     const commandData = nay.commands.find(c => c.name === command);
 
