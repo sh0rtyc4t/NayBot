@@ -15,7 +15,7 @@ module.exports = class Nay extends Client {
         require(`${ctx.mainDir}/src/modules/locales.js`)();
 
         // eslint-disable-next-line new-cap
-        const db = new (require(`${ctx.mainDir}/src/modules/firebase.js`))(ctx.config.firebaseConfig);
+        const db = new (require(`${ctx.mainDir}/src/modules/Database.js`))(ctx.config.firebaseConfig);
         db.connect();
         global.db = db;
     }
@@ -33,8 +33,7 @@ module.exports = class Nay extends Client {
     }
 
     loadUtils () {
-        const files = fs.readdirSync(`${ctx.mainDir}/src/utils/prototypes`);
-        for (const file of files) require(`${ctx.mainDir}/src/utils/prototypes/${file}`);
+        require(`${ctx.mainDir}/src/utils/prototypes.js`);
 
         const files2 = fs.readdirSync(`${ctx.mainDir}/src/utils/functions`);
         for (const file of files2) require(`${ctx.mainDir}/src/utils/functions/${file}`);

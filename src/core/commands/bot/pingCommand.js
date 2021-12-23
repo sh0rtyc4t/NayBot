@@ -1,3 +1,4 @@
 module.exports = function (interaction) {
-    interaction.createMessage(t("commands:ping", { latency: nay.requestHandler.latencyRef.latency }));
+    const embed = new ctx.BaseEmbed(`🏓 ┃ ${t("commands:ping", { latency: nay.requestHandler.latencyRef.latency })}`, "Pong!");
+    interaction.createMessage({ embeds: [embed] });
 };
