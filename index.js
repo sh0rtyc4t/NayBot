@@ -3,7 +3,6 @@ const path = require("path");
 const Nay = require("./src/core/Client.js");
 const security = require("./config/security.json");
 const settings = require("./config/settings.json");
-
 const cmdLineArgs = process.argv.slice(2);
 
 let instance = "nay";
@@ -25,6 +24,8 @@ global.ctx = {
 
 global.nay = new Nay(`Bot ${config.token}`, {
     intents: config.intents,
+    maxShards: 1,
+    restMode: true,
     instance
 });
 

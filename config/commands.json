@@ -14,5 +14,22 @@
         "DM": true,
         "thread": true,
         "dir": "bot/pingCommand"
+    },
+    
+    {
+        "name": "avatar",
+        "description": "Exibe o avatar de um usuário",
+        "help": {
+            "usage": "/avatar @user|id",
+            "example": "/avatar @Nay"
+        },
+        "acess": {
+            "forDevs": false,
+            "nayPermissions": null,
+            "memberPermissions": null
+        },
+        "DM": true,
+        "thread": true,
+        "dir": "utilitys/avatarCommand"
     }
 ]
