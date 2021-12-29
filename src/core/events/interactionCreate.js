@@ -3,7 +3,7 @@ const NayUser = require(`${ctx.mainDir}/src/utils/classes/nayUser.js`);
 
 module.exports = async function (interaction) {
     if (!(interaction instanceof ctx.Eris.CommandInteraction)) return;
-    global.t = i18.getFixedT(interaction.member.guild.preferredLocale);
+    global.t = i18.getFixedT(interaction.member.guild.preferredLocale || "en-US");
 
     if (!await NayUser.check(interaction.member.id)) new NayUser(interaction.member.id).register();
 
