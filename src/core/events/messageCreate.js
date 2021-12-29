@@ -6,7 +6,7 @@ const cld = require("child_process");
 module.exports = async function (message) {
     const prefix = "%";
     const content = message.content.split(" ");
-    const t = i18.getFixedT(message.member.guild.preferredLocale || "en-US");
+    const t = i18.getFixedT(message.member?.guild?.preferredLocale || "en-US");
 
     if (message.content.match(/\?\?./)) {
         return nay.createMessage(message.channel.id, { embeds: [new ctx.BaseEmbed(t("miscellany:alert-slash"), "Changes...")]});
