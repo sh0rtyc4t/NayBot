@@ -6,6 +6,11 @@ const cld = require("child_process");
 module.exports = async function (message) {
     const prefix = "%";
     const content = message.content.split(" ");
+    const t = i18.getFixedT(message.member.guild.preferredLocale);
+
+    if (message.content.match(/\?\?./)) {
+        return nay.createMessage(message.channel.id, { embeds: [new ctx.BaseEmbed(t("miscellany:alert-slash"), "Changes...")]});
+    }
 
     if (content[0] === `${prefix}eval` && ctx.config.owners.includes(message.author.id)) {
         let text = content.slice(1).join(" ")
