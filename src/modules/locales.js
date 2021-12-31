@@ -11,7 +11,7 @@ module.exports = function () {
             "miscellany"
         ],
         preload: readdirSync(`${ctx.mainDir}/src/locales`),
-        fallbackLng: "pt-BR",
+        fallbackLng: "en-US",
         backend: {
             loadPath: `${ctx.mainDir}/src/locales/{{lng}}/{{ns}}.json`
         },

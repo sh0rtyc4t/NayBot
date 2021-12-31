@@ -37,5 +37,8 @@ module.exports = class Nay extends Client {
 
         const files2 = fs.readdirSync(`${ctx.mainDir}/src/utils/functions`);
         for (const file of files2) require(`${ctx.mainDir}/src/utils/functions/${file}`);
+
+        const HookLogs = require(`${ctx.mainDir}/src/modules/HookLogs.js`);
+        global.hooks = new HookLogs(ctx.config.logWebhooks);
     }
 };

@@ -12,7 +12,8 @@
         "ctx": "readonly",
         "db": "readonly",
         "nay": "readonly",
-        "t": "readonly"
+        "t": "readonly",
+        "hooks": "readonly"
     },
     "rules": {
         "accessor-pairs": "error",
@@ -35,7 +36,6 @@
         "block-scoped-var": "error",
         "block-spacing": "error",
         "brace-style": "error",
-        "camelcase": "error",
         "comma-dangle": "error",
         "comma-spacing": [
             "error",
@@ -147,7 +147,6 @@
         "no-new-object": "error",
         "no-new-wrappers": "error",
         "no-octal-escape": "error",
-        "no-param-reassign": "error",
         "no-plusplus": "error",
         "no-promise-executor-return": "error",
         "no-proto": "error",
@@ -196,7 +195,6 @@
         "padding-line-between-statements": "error",
         "prefer-arrow-callback": "error",
         "prefer-const": "error",
-        "prefer-destructuring": "error",
         "prefer-exponentiation-operator": "error",
         "prefer-named-capture-group": "error",
         "prefer-numeric-literals": "error",

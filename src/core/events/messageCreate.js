@@ -4,11 +4,11 @@ const i18 = require("i18next");
 const cld = require("child_process");
 
 module.exports = async function (message) {
-    const prefix = "%";
+    const prefix = ctx.config.prefix;
     const content = message.content.split(" ");
     const t = i18.getFixedT(message.member?.guild?.preferredLocale || "en-US");
 
-    if (message.content.match(/\?\?./)) {
+    if (message.content.match(/^\?\?./)) {
         return nay.createMessage(message.channel.id, { embeds: [new ctx.BaseEmbed(t("miscellany:alert-slash"), "Changes...")]});
     }
 
@@ -21,7 +21,7 @@ module.exports = async function (message) {
 
         try {
             const evalued = util.inspect(await eval(`(async()=>{${text}\n})()`), { depth: 1 }).slice(0, 3960);
-            nay.createMessage(message.channel.id, {
+            return nay.createMessage(message.channel.id, {
                 embeds: [
                     {
                         title: "Eval",
@@ -32,7 +32,22 @@ module.exports = async function (message) {
                 ]
             });
         } catch (e) {
-            nay.createMessage(message.channel.id, `Houve um erro na execução do eval:\n\`${e}\``);
+            return nay.createMessage(message.channel.id, `Houve um erro na execução do eval:\n\`${e}\``);
         }
+    }
+
+    if (!message.guildID) {
+        const embed = {
+            color: ctx.resolveColor("FF0000"),
+            title: message.author.tag,
+            thumbnail: { url: message.author.dynamicAvatarURL(null, 512)},
+            description: `\`\`\`diff\n- ${message.content}\`\`\``,
+            footer: {
+                icon_url: nay.user.avatarURL,
+                text: `Menssagem em DM de ${nay.user.tag}`
+            }
+        };
+
+        hooks.dmLog({ embeds: [embed] });
     }
 };

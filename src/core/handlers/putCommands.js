@@ -15,7 +15,6 @@ module.exports = async function () {
             nay.createCommand({
                 name: cmd.name,
                 description: cmd.description,
-                // eslint-disable-next-line camelcase
                 dm_permission: cmd.DM
             });
         }

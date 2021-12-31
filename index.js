@@ -12,6 +12,7 @@ if (cmdLineArgs.includes("--dev")) instance = "nightly";
 
 const config = {
     ...security[instance],
+    ...security.any,
     ...settings
 };
 

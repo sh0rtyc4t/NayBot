@@ -38,7 +38,13 @@ in the `NayBot/config/` folder, create the file `security.json` using the follow
             // YOUR FIREBASE CONFIG OBJECT
         },
 
-        "token": "BOT-TOKEN"
+        "token": "BOT-TOKEN",
+
+        "prefix": "BOT-PREFIX"
+    },
+
+    "any": {
+        // OPTIONAL OBJECTS FOR ANY INSTANCE
     }
 }
 ```

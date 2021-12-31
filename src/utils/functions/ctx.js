@@ -19,7 +19,6 @@ ctx.BaseEmbed = function (description, title) {
     this.description = description;
     this.timestamp = new Date();
     this.footer = {
-        // eslint-disable-next-line camelcase
         icon_url: nay.user.avatarURL,
         text: nay.user.tag
     };
