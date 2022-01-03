@@ -27,60 +27,73 @@ module.exports = async function (message) {
         return message.channel.createMessage({ embeds: [new ctx.BaseEmbed(t("miscellany:alert-slash"), "Changes...")]});
     }
 
-    if (!message.guildID) {
-        const embed = {
-            color: ctx.resolveColor("FF0000"),
-            title: message.author.tag,
-            thumbnail: { url: message.author.dynamicAvatarURL(null, 512)},
-            description: `\`\`\`diff\n- ${message.content || "Sem conteudo"}\`\`\``,
-            footer: {
-                icon_url: nay.user.avatarURL,
-                text: `Menssagem em DM de ${nay.user.tag}`
-            }
-        };
+    if (message.channel.id === ctx.config.dmchannel && content[0] && !content[0].startsWith("//") && !message.author.bot) {
+        try {
+            const channel = await (await nay.getRESTUser(content[0])).getDMChannel();
+            const text = content.slice(1);
+            if (message.attachments) for (const attach of message.attachments) text.push(`\n${attach.proxy_url}`);
 
-        if (message.attachments.length === 1) embed.image = { url: message.attachments[0].proxy_url };
-        hooks.dmLog({ embeds: [embed] });
-
-        if (message.attachments.length > 1 || message.attachments[0].content_type.startsWith("video")) {
-            const embedMidia = new ctx.BaseEmbed(null, "Arquivos da menssagem acima:");
-            const fields = [];
-            const videos = [];
-            const images = [];
-            const files = [];
-
-            for (const attach of message.attachments) {
-                if (attach.content_type.startsWith("video")) {
-                    videos.push(`[${attach.filename}](${attach.proxy_url})`);
-                    continue;
-                }
-
-                if (attach.content_type.startsWith("image")) {
-                    images.push(`[${attach.filename}](${attach.proxy_url})`);
-                    continue;
-                }
-
-                files.push(`[${attach.filename}](${attach.proxy_url})`);
-            }
-
-
-            if (videos.length) fields.push({
-                name: "Videos",
-                value: videos.join("\n")
-            });
-
-            if (images.length) fields.push({
-                name: "Imagens",
-                value: images.join("\n")
-            });
-
-            if (files.length) fields.push({
-                name: "Arquivos",
-                value: files.join("\n")
-            });
-
-            embedMidia.fields = fields;
-            hooks.dmLog({ embeds: [embedMidia] });
+            channel.createMessage(text.join(" "));
+        } catch (err) {
+            message.channel.createMessage("Houve um erro ao enviar esta menssagem");
         }
     }
+
+    if (!message.guildID) return executeDMLog(message);
 };
+
+function executeDMLog (message) {
+    const embed = {
+        color: ctx.resolveColor("FF0000"),
+        title: message.author.tag,
+        thumbnail: { url: message.author.dynamicAvatarURL(null, 512)},
+        description: `\`\`\`diff\n- ${message.content || "Sem conteudo"}\`\`\``,
+        footer: {
+            icon_url: nay.user.avatarURL,
+            text: `Menssagem em DM de ${nay.user.tag}`
+        }
+    };
+
+    if (message.attachments.length === 1) embed.image = { url: message.attachments[0].proxy_url };
+
+    if (message.attachments.length > 1 || message.attachments[0]?.content_type?.startsWith("video")) {
+        const fields = [];
+        const videos = [];
+        const images = [];
+        const files = [];
+
+        for (const attach of message.attachments) {
+            if (attach.content_type.startsWith("video")) {
+                videos.push(`[${attach.filename}](${attach.proxy_url})`);
+                continue;
+            }
+
+            if (attach.content_type.startsWith("image")) {
+                images.push(`[${attach.filename}](${attach.proxy_url})`);
+                continue;
+            }
+
+            files.push(`[${attach.filename}](${attach.proxy_url})`);
+        }
+
+
+        if (videos.length) fields.push({
+            name: "Videos",
+            value: videos.join("\n")
+        });
+
+        if (images.length) fields.push({
+            name: "Imagens",
+            value: images.join("\n")
+        });
+
+        if (files.length) fields.push({
+            name: "Arquivos",
+            value: files.join("\n")
+        });
+
+        embed.fields = fields;
+    }
+
+    hooks.dmLog({ embeds: [embed] });
+}
