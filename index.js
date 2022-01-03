@@ -16,6 +16,7 @@ const config = {
     ...settings
 };
 
+
 global.ctx = {
     Eris,
     mainDir: __dirname,
