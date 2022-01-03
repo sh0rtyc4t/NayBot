@@ -61,4 +61,4 @@ The eslint configuration used in the project is in the `.eslintrc.json` file. Fo
 
 # Liscence
 
-Refer to the [LICENSE](https://github.com/Shortcat37089/NayBot/blob/main/LICENSE) file.
+Refer to the [LICENSE](https://github.com/sh0rtyc4t/NayBot/blob/main/LICENSE) file.
