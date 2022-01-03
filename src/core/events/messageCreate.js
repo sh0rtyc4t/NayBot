@@ -2,6 +2,7 @@
 const util = require("util");
 const i18 = require("i18next");
 const cld = require("child_process");
+const fs = require("fs");
 
 module.exports = async function (message) {
     const prefix = ctx.config.prefix;
@@ -17,7 +18,7 @@ module.exports = async function (message) {
 
         try {
             const evalued = util.inspect(await eval(`(async()=>{${text}\n})()`), { depth: 1 }).slice(0, 3960);
-            return message.channel.createMessage({ embeds: [new ctx.BaseEmbed(`\`\`\`js\n${evalued}\`\`\``, "Eval")] });
+            return message.channel.createMessage({ embeds: [new ctx.BaseEmbed(evalued.encode("js"), "Eval")] });
         } catch (e) {
             return message.channel.createMessage(`Houve um erro na execução do eval:\n\`${e}\``);
         }
@@ -47,7 +48,7 @@ function executeDMLog (message) {
         color: ctx.resolveColor("FF0000"),
         title: message.author.tag,
         thumbnail: { url: message.author.dynamicAvatarURL(null, 512)},
-        description: `\`\`\`diff\n- ${message.content || "Sem conteudo"}\`\`\``,
+        description: (message.content || "Sem conteudo").encode("diff"),
         footer: {
             icon_url: nay.user.avatarURL,
             text: `Menssagem em DM de ${nay.user.tag}`
@@ -95,5 +96,5 @@ function executeDMLog (message) {
         embed.fields = fields;
     }
 
-    hooks.dmLog({ embeds: [embed] });
+    ctx.hooks.dmLog({ embeds: [embed] });
 }

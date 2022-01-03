@@ -12,8 +12,7 @@
         "ctx": "readonly",
         "db": "readonly",
         "nay": "readonly",
-        "t": "readonly",
-        "hooks": "readonly"
+        "t": "readonly"
     },
     "rules": {
         "accessor-pairs": "error",
@@ -66,10 +65,6 @@
             "warn",
             "never"
         ],
-        "func-style": [
-            "error",
-            "declaration"
-        ],
         "function-paren-newline": "error",
         "generator-star-spacing": "error",
         "grouped-accessor-pairs": "error",
@@ -119,7 +114,6 @@
         "no-else-return": "error",
         "no-empty-function": "error",
         "no-eq-null": "error",
-        "no-extend-native": "error",
         "no-extra-bind": "error",
         "no-extra-label": "error",
         "no-extra-parens": "error",

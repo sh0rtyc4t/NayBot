@@ -31,4 +31,9 @@ global.nay = new Nay(`Bot ${config.token}`, {
     instance
 });
 
+const emitError = u => nay.emit("error", u.message);
+process.on("warning", w => nay.emit("warn", w.message));
+process.on("uncaughtException", emitError);
+process.on("unhandledRejection", emitError);
+
 nay.initiate().then(() => nay.loadCore());

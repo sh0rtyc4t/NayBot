@@ -39,6 +39,6 @@ module.exports = class Nay extends Client {
         for (const file of files2) require(`${ctx.mainDir}/src/utils/functions/${file}`);
 
         const HookLogs = require(`${ctx.mainDir}/src/modules/HookLogs.js`);
-        global.hooks = new HookLogs(ctx.config.logWebhooks);
+        ctx.hooks = new HookLogs(ctx.config.logWebhooks);
     }
 };

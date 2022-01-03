@@ -22,3 +22,12 @@ Object.defineProperty(Eris.User.prototype, "tag", {
         return `${this.username}#${this.discriminator}`;
     }
 });
+
+/**
+ * Transforms the string into a Markdown code
+ * @param {String} lang
+ * @returns {String}
+ */
+String.prototype.encode = function (lang) {
+    return `\`\`\`${lang}\n${this}\n\`\`\``;
+};
