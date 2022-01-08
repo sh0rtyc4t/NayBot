@@ -7,7 +7,7 @@ A Discord bot using [Eris](https://github.com/abalabahaha/eris/) library, Nay is
 ### Requirements
 
 * [NodeJS](https://nodejs.org/) >= **16.0.0**
-* NPM >= **8.0.0**
+* [NPM](https://npmjs.com) >= **8.0.0**
 * [Firebase Realtime Database](https://firebase.google.com/)
 
 ### Preparation
@@ -16,15 +16,17 @@ A Discord bot using [Eris](https://github.com/abalabahaha/eris/) library, Nay is
 
 Download this repository and enter from the main folder using:
 ```sh
-git clone https://github.com/Shortcat37089/NayBot.git && cd NayBot
+git clone https://github.com/sh0rtyc4t/NayBot.git && cd NayBot
 ```
-or download the [zip file](https://github.com/Shortcat37089/NayBot/archive/refs/heads/main.zip) and extract.
+or download the [zip file](https://github.com/sh0rtyc4t/NayBot/archive/refs/heads/main.zip) and extract.
 
 ##### Install Dependencies
 
 In project folder, use:
 ```sh
 npm install
+# or
+yarn install
 ```
 and wait while dependencies are installed.
 
@@ -55,10 +57,10 @@ Replace "nay", in the `index.js` for your bot name used in the template above. I
 
 With everything ready, you can start the bot on the main instance using `npm start`, or on a development instance using `npm run dev` (nodemon is required).
 
-# ES lint
+# ESlint
 
 The eslint configuration used in the project is in the `.eslintrc.json` file. For validation, use the `npm run validate` script
 
-# Liscence
+# Licence
 
 Refer to the [LICENSE](https://github.com/sh0rtyc4t/NayBot/blob/main/LICENSE) file.
