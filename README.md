@@ -55,10 +55,10 @@ Replace "nay", in the `index.js` for your bot name used in the template above. I
 
 With everything ready, you can start the bot on the main instance using `npm start`, or on a development instance using `npm run dev` (nodemon is required).
 
-# ES lint
+# ESlint
 
 The eslint configuration used in the project is in the `.eslintrc.json` file. For validation, use the `npm run validate` script
 
-# Liscence
+# Licence
 
 Refer to the [LICENSE](https://github.com/sh0rtyc4t/NayBot/blob/main/LICENSE) file.
