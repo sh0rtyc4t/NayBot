@@ -15,8 +15,7 @@ module.exports = function (err, interaction) {
             }
         ],
         footer: {
-            text: `Error in: ${nay.user.tag}`,
-            icon_url: nay.user.avatarURL
+            text: `Error in: ${nay.instance}`
         }
     };
 

@@ -15,7 +15,7 @@ module.exports = function (warn, interaction) {
             }
         ],
         footer: {
-            text: `Warn in: ${nay.user.tag}`,
+            text: `Warn in: ${nay.instance}`,
             icon_url: nay.user.avatarURL
         }
     };
