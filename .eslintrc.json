@@ -12,7 +12,10 @@
         "ctx": "readonly",
         "db": "readonly",
         "nay": "readonly",
-        "t": "readonly"
+        "t": "readonly",
+        "CLI": "readonly",
+        "window": "readonly",
+        "document": "readonly"
     },
     "rules": {
         "accessor-pairs": "error",
@@ -211,7 +214,7 @@
             "double"
         ],
         "radix": "error",
-        "require-atomic-updates": "error",
+        "require-atomic-updates": ["error", { "allowProperties": true }],
         "require-await": "error",
         "rest-spread-spacing": "error",
         "semi": "error",

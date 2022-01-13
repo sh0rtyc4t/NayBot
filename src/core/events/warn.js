@@ -1,4 +1,4 @@
-module.exports = function (warn) {
+module.exports = function (warn, interaction) {
     const embed = {
         timestamp: new Date(),
         title: warn.name || "Warn",
@@ -7,13 +7,17 @@ module.exports = function (warn) {
         fields: [
             {
                 name: "Local",
-                value: "bah"
+                value: `**Guild:**\n\`${interaction?.member?.guild.name || "Nenhum"} | ${interaction?.guildID || "Sem ID"}\``
             },
             {
                 name: "Usuário",
-                value: "tchẽ"
+                value: `\`${interaction?.member?.user.tag || "Nenhum"} | ${interaction?.member?.id || "Sem ID"}\``
             }
-        ]
+        ],
+        footer: {
+            text: `Warn in: ${nay.user.tag}`,
+            icon_url: nay.user.avatarURL
+        }
     };
 
     ctx.hooks.errorLog({ embeds: [embed] });

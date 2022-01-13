@@ -8,6 +8,7 @@
     "npm": ">= 8.0.0"
   },
   "dependencies": {
+    "electron": "^16.0.6",
     "eris": "^0.16.1",
     "firebase": "^9.5.0",
     "i18next": "^21.6.0",
@@ -20,7 +21,8 @@
   "scripts": {
     "start": "node --expose-gc .",
     "dev": "nodemon --expose-gc . --dev",
-    "validate": "eslint --ext .js ."
+    "validate": "eslint --ext .js .",
+    "CLI": "nodemon --exec \"electron ./src/CLI/electron.js --dev\""
   },
   "keywords": [],
   "author": {

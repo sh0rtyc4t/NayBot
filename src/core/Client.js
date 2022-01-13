@@ -11,7 +11,6 @@ module.exports = class Nay extends Client {
 
     loadCore () {
         require(`${ctx.mainDir}/src/core/handlers/putCommands.js`)();
-        require(`${ctx.mainDir}/src/core/handlers/loadEvents.js`)();
         require(`${ctx.mainDir}/src/modules/locales.js`)();
 
         // eslint-disable-next-line new-cap
@@ -21,15 +20,13 @@ module.exports = class Nay extends Client {
     }
 
     initiate () {
-        return new Promise((res, rej) => {
-            this.loadUtils();
-            this.once("ready", () => res());
-            try {
-                this.connect();
-            } catch (e) {
-                rej(new Error("Error on iniciate Client"));
-            }
-        });
+        this.loadUtils();
+        require(`${ctx.mainDir}/src/core/handlers/loadEvents.js`)();
+        try {
+            this.connect();
+        } catch (e) {
+            this.emit("error", "Error on iniciate Client");
+        }
     }
 
     loadUtils () {

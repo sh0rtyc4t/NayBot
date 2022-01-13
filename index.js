@@ -23,7 +23,7 @@ global.ctx = {
     path,
     config
 };
-
+delete global.nay;
 global.nay = new Nay(`Bot ${config.token}`, {
     intents: config.intents,
     maxShards: 1,
@@ -36,4 +36,4 @@ process.on("warning", w => nay.emit("warn", w.message));
 process.on("uncaughtException", emitError);
 process.on("unhandledRejection", emitError);
 
-nay.initiate().then(() => nay.loadCore());
+nay.initiate();

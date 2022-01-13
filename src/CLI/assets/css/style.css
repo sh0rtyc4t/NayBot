@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+body {
+    background: rgb(12, 12, 12);
+    font-family: 'Open sans', sans-serif;
+}
+
+section {
+    background: rgb(235, 108, 228);
+    border-radius: 16px;
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 670px;
+}
+
+button#startButton {
+    color: black;
+    background: rgb(235, 108, 228);
+    height: 40px;
+    border-radius: 5px;
+    border-color: black;
+    font: normal 20px Arial;
+    cursor: pointer;
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+button#startButton:hover {
+    background: black;
+    color: rgb(235, 108, 228);
+}
