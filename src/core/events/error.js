@@ -2,7 +2,7 @@ module.exports = function (err, interaction) {
     const embed = {
         timestamp: new Date(),
         title: err.name || "Error",
-        color: ctx.resolveColor("#FF0000"),
+        color: ctx.resolveColor(ctx.config.baseColor),
         description: (err.message || err).encode("js"),
         fields: [
             {
@@ -19,5 +19,6 @@ module.exports = function (err, interaction) {
         }
     };
 
+    console.log(err);
     ctx.hooks.errorLog({ embeds: [embed] });
 };

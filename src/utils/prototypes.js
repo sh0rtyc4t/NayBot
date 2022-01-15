@@ -7,7 +7,7 @@ const Eris = require("eris");
  */
 Eris.CommandInteraction.prototype.createError = function (message) {
     const embed = {
-        color: ctx.resolveColor("FF0000"),
+        color: ctx.resolveColor(ctx.config.baseColor),
         description: `${nay.emojis.error} ┃ **${message}**`
     };
 

@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const config = JSON.parse(fs.readFileSync("./tmp/config.json.tmp"));
 fs.rmSync("./tmp/config.json.tmp");
-global.CLI = true;
+global.MP = true;
 let botIsLoaded = false;
 
 if (config.isDev) process.argv.push("--dev");

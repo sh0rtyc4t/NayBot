@@ -3,6 +3,8 @@ const util = require("util");
 const i18 = require("i18next");
 const cld = require("child_process");
 const fs = require("fs");
+const bytes = require("bytes");
+const os = require("os");
 
 module.exports = async function (message) {
     const prefix = ctx.config.prefix;
@@ -45,8 +47,8 @@ module.exports = async function (message) {
 
 function executeDMLog (message) {
     const embed = {
-        color: ctx.resolveColor("FF0000"),
-        title: message.author.tag,
+        color: ctx.resolveColor(ctx.config.baseColor),
+        title: `${message.author.tag} | ${message.author.id}`,
         thumbnail: { url: message.author.dynamicAvatarURL(null, 512)},
         description: (message.content || "Sem conteudo").encode("diff"),
         footer: {
@@ -96,5 +98,5 @@ function executeDMLog (message) {
         embed.fields = fields;
     }
 
-    ctx.hooks.dmLog({ embeds: [embed] });
+    return ctx.hooks.dmLog({ embeds: [embed] });
 }

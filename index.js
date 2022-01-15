@@ -4,6 +4,7 @@ const Nay = require("./src/core/Client.js");
 const security = require("./config/security.json");
 const settings = require("./config/settings.json");
 const cmdLineArgs = process.argv.slice(2);
+global.fetch = require("node-fetch");
 
 let instance = "nay";
 // replace "nay" to your bot name
@@ -23,7 +24,7 @@ global.ctx = {
     path,
     config
 };
-delete global.nay;
+
 global.nay = new Nay(`Bot ${config.token}`, {
     intents: config.intents,
     maxShards: 1,

@@ -15,8 +15,7 @@ module.exports = function (warn, interaction) {
             }
         ],
         footer: {
-            text: `Warn in: ${nay.instance}`,
-            icon_url: nay.user.avatarURL
+            text: `Warn in: ${nay.instance}`
         }
     };
 

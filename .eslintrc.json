@@ -13,9 +13,10 @@
         "db": "readonly",
         "nay": "readonly",
         "t": "readonly",
-        "CLI": "readonly",
+        "MP": "readonly",
         "window": "readonly",
-        "document": "readonly"
+        "document": "readonly",
+        "fetch": "readonly"
     },
     "rules": {
         "accessor-pairs": "error",

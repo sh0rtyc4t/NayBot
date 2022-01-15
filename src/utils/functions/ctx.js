@@ -15,7 +15,7 @@ ctx.resolveColor = function (color) {
  */
 ctx.BaseEmbed = function (description, title) {
     this.title = title;
-    this.color = ctx.resolveColor("FF0000");
+    this.color = ctx.resolveColor(ctx.config.baseColor);
     this.description = description;
     this.timestamp = new Date();
     this.footer = {

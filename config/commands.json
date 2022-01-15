@@ -18,7 +18,7 @@
     
     {
         "name": "avatar",
-        "description": "Exibe o avatar de um usuário",
+        "description": "Display a user's avatar",
         "help": {
             "usage": "/avatar @user|id",
             "example": "/avatar @Nay"
@@ -31,5 +31,22 @@
         "DM": true,
         "thread": true,
         "dir": "utilitys/avatarCommand"
+    },
+
+    {
+        "name": "botinfo",
+        "description": "Display infos of the bot",
+        "help": {
+            "usage": "/botinfo",
+            "example": "/botinfo"
+        },
+        "acess": {
+            "forDevs": false,
+            "nayPermissions": null,
+            "memberPermissions": null
+        },
+        "DM": true,
+        "thread": true,
+        "dir": "bot/botinfoCommand"
     }
 ]
