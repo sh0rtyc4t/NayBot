@@ -15,8 +15,9 @@ module.exports = class HookLogs {
         return nay.executeWebhook(this.reporthook.id, this.reporthook.token, msgObj);
     }
 
-    errorLog (msgObj) {
+    errorLog (msgObj, editMsg) {
         if (typeof msgObj === "string") msgObj = { content: msgObj };
+        if (editMsg) return nay.editWebhookMessage(this.errorhook.id, this.errorhook.token, editMsg, msgObj);
         return nay.executeWebhook(this.errorhook.id, this.errorhook.token, msgObj);
     }
 };

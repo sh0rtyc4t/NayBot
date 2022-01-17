@@ -26,7 +26,7 @@ module.exports = async function (message) {
         }
     }
 
-    if (message.content.match(/^\?\?./)) {
+    if (message.content.match(/^\?\?./) && !message.author.bot) {
         return message.channel.createMessage({ embeds: [new ctx.BaseEmbed(t("miscellany:alert-slash"), "Changes...")]});
     }
 

@@ -1,4 +1,4 @@
-module.exports = function (err, interaction) {
+module.exports = async function (err, interaction) {
     const embed = {
         timestamp: new Date(),
         title: err.name || "Error",
@@ -19,6 +19,6 @@ module.exports = function (err, interaction) {
         }
     };
 
-    console.log(err);
-    ctx.hooks.errorLog({ embeds: [embed] });
+    const lastMessage = await ctx.hooks.errorLog({ embeds: [embed] }, await db.getVal("nay/lastErrorhookMsg"));
+    return db.set("nay/lastErrorhookMsg", lastMessage.id);
 };
