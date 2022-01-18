@@ -1,7 +1,7 @@
-module.exports = function (warn, interaction) {
+module.exports = async function (warn, interaction) {
     const embed = {
         timestamp: new Date(),
-        title: warn.name || "Warn",
+        title: `${warn.name || "Warn"} x1`,
         color: ctx.resolveColor("#fce35a"),
         description: (warn.message || warn).encode("js"),
         fields: [
@@ -19,5 +19,9 @@ module.exports = function (warn, interaction) {
         }
     };
 
-    ctx.hooks.errorLog({ embeds: [embed] });
+    const lastMessage = await ctx.hooks.errorLog({
+        embed,
+        wait: true
+    }, nay.notes.get("lastWarnhookMsg"));
+    return nay.notes.set("lastWarnhookMsg", lastMessage.id);
 };

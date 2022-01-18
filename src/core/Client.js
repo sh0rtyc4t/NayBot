@@ -1,4 +1,4 @@
-const { Client } = require("eris");
+const { Client, Collection } = require("eris");
 const fs = require("fs");
 
 module.exports = class Nay extends Client {
@@ -7,6 +7,7 @@ module.exports = class Nay extends Client {
         this.instance = ClientOptions.instance;
         this.emojis = require(`${ctx.mainDir}/config/emojis.json`);
         this.commands = require(`${ctx.mainDir}/config/commands.json`);
+        this.notes = new Collection("notes");
     }
 
     loadCore () {
