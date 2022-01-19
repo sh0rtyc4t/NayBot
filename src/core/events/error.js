@@ -18,6 +18,7 @@ module.exports = async function (err, interaction) {
             text: `Error in: ${nay.instance}`
         }
     };
+
     const lastMessage = await ctx.hooks.errorLog({
         embed,
         wait: true

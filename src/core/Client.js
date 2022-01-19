@@ -1,4 +1,4 @@
-const { Client, Collection } = require("eris");
+const { Client, Collection, Constants } = require("eris");
 const fs = require("fs");
 
 module.exports = class Nay extends Client {
@@ -38,5 +38,55 @@ module.exports = class Nay extends Client {
 
         const HookLogs = require(`${ctx.mainDir}/src/modules/HookLogs.js`);
         ctx.hooks = new HookLogs(ctx.config.logWebhooks);
+    }
+
+    sendMessage (channelID, options, components) {
+        if (typeof options === "string" || typeof options === "number") options = { content: String(options) };
+
+        const files = [];
+
+        if (components) {
+
+            for (const component of components) {
+                if (component.type === "file") {
+                    files.push({
+                        name: component.name,
+                        file: component.file || fs.readFileSync(component.path) || "Empty"
+                    });
+                    continue;
+
+                } else if (component.type === "but") {
+                    component.type = Constants.ComponentTypes.BUTTON;
+                    component.style = component.url
+                        ? Constants.ButtonStyles.LINK
+                        : Number(component.style
+                            .replace("red", Constants.ButtonStyles.DANGER)
+                            .replace("green", Constants.ButtonStyles.SUCCESS)
+                            .replace("blurple", Constants.ButtonStyles.PRIMARY)
+                            .replace("grey", Constants.ButtonStyles.SECONDARY));
+
+                } else if (component.type === "menu") {
+                    component.type = Constants.ComponentTypes.SELECT_MENU;
+                    component.placeholder = component.label;
+                    delete component.label;
+                    component.min_values = component.values?.at(0) || 1;
+                    component.max_values = component.values?.at(1) || 1;
+                    // eslint-disable-next-line no-return-assign
+                    component.options.forEach(op => op.value ??= op.label.toLowerCase());
+                }
+                component.custom_id = component.name;
+                delete component.name;
+            }
+
+            options.components = [
+                {
+                    type: 1,
+                    components
+                }
+            ];
+
+        }
+
+        return nay.createMessage(channelID, options, files);
     }
 };

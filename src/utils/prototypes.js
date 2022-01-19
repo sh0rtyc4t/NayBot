@@ -31,3 +31,26 @@ Object.defineProperty(Eris.User.prototype, "tag", {
 String.prototype.encode = function (lang) {
     return `\`\`\`${lang}\n${this}\n\`\`\``;
 };
+
+/**
+ * Creates a select menu or button collector
+ * @param {Object} options collector options
+ * @param {Function} callback
+ * @param {Function} endCallback
+ * @callback callback returns the user interaction
+ * @callback the end of the collector
+ */
+Eris.Message.prototype.createComponentCollector = function (options, callback, endCallback) {
+    const listener = interaction => {
+        if (!(interaction instanceof Eris.ComponentInteraction) || this.id !== interaction.message.id) return;
+        if (options.filter && !options.filter(interaction)) return;
+        return callback(interaction);
+    };
+
+    nay.on("interactionCreate", listener);
+    setTimeout(() => {
+        nay.removeListener("interactionCreate", listener);
+        endCallback && endCallback(this.components);
+    }, options.time ?? 60000);
+    return this;
+};

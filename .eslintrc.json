@@ -54,7 +54,6 @@
         "complexity": "error",
         "computed-property-spacing": "error",
         "consistent-this": "error",
-        "default-case": "error",
         "default-case-last": "error",
         "default-param-last": "error",
         "dot-notation": "error",
@@ -168,7 +167,6 @@
         "no-unmodified-loop-condition": "error",
         "no-unneeded-ternary": "error",
         "no-unreachable-loop": "error",
-        "no-unused-expressions": "error",
         "no-unused-private-class-members": "error",
         "no-use-before-define": [
             "error",
