@@ -40,7 +40,7 @@ module.exports = class Nay extends Client {
         ctx.hooks = new HookLogs(ctx.config.logWebhooks);
     }
 
-    sendMessage (channelID, options, components) {
+    sendMessage (channel, options, components) {
         if (typeof options === "string" || typeof options === "number") options = { content: String(options) };
 
         const files = [];
@@ -87,6 +87,8 @@ module.exports = class Nay extends Client {
 
         }
 
-        return nay.createMessage(channelID, options, files);
+        return typeof channel === "object"
+            ? channel.createMessage(options, files)
+            : nay.createMessage(channel, options, files);
     }
 };

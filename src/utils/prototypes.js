@@ -54,3 +54,7 @@ Eris.Message.prototype.createComponentCollector = function (options, callback, e
     }, options.time ?? 60000);
     return this;
 };
+
+Eris.CommandInteraction.prototype.reply = function (options, components) {
+    return nay.sendMessage(this, options, components);
+};
