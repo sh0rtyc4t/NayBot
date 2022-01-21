@@ -4,5 +4,5 @@ module.exports = async function (interaction) {
         : interaction.member.user;
     const embed = new ctx.BaseEmbed(null, user.tag);
     embed.image = {url: user.dynamicAvatarURL(null, 1024)};
-    interaction.createMessage({ embeds: [embed] });
+    interaction.reply({ embeds: [embed] });
 };

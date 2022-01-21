@@ -4,18 +4,23 @@ module.exports = async function () {
     for (const cmd of cmds) {
         const cmdPath = `${ctx.mainDir}/src/core/commands/${cmd.dir}.js`;
         cmd.execute = require(cmdPath);
+        const cmdData = {
+            name: cmd.name,
+            description: cmd.description,
+            dm_permission: cmd.DM,
+            options: cmd.options
+        };
         cmd.acess.forDevs
             ? putDevCommand({
                 name: cmd.name,
-                description: cmd.description
+                description: cmd.description,
+                options: cmd.options
             })
             : await hasRegistred(cmd.name)
-                ? nay.createCommand({
-                    name: cmd.name,
-                    description: cmd.description,
-                    dm_permission: cmd.DM
-                })
-                : null;
+                ? await wasModified(cmdData)
+                    ? nay.editCommand((await nay.getCommands()).find(c => c.name === cmd.name).id, cmdData)
+                    : null
+                : nay.createCommand(cmdData);
     }
     return cmds;
 };
@@ -39,10 +44,26 @@ async function putDevCommand (data) {
 }
 
 async function hasRegistred (commandName, guild) {
-    if (guild) {
-        const commands = await nay.getGuildCommands(guild);
-        return commands.find(c => c.name === commandName);
-    }
-    const commands = await nay.getCommands();
+    let commands = null;
+    guild
+        ? commands = await nay.getGuildCommands(guild)
+        : commands = await nay.getCommands();
     return commands.find(c => c.name === commandName);
+}
+
+async function wasModified (commandData, guild) {
+    let commands = null;
+    guild
+        ? commands = await nay.getGuildCommands(guild)
+        : commands = await nay.getCommands();
+    const command = commands.find(c => c.name === commandData.name);
+    return JSON.stringify({
+        description: commandData.description,
+        default_permission: commandData.default_permission,
+        options: commandData.options
+    }) !== JSON.stringify({
+        description: command.description,
+        default_permission: command.default_permission,
+        options: command.options
+    });
 }

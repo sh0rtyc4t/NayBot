@@ -36,5 +36,5 @@ module.exports = async function (interaction) {
         ]
     };
 
-    interaction.createMessage({ embeds: [embed] });
+    interaction.reply({ embeds: [embed] });
 };
