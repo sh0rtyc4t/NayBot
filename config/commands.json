@@ -35,7 +35,6 @@
             {
                 "type": 6,
                 "name": "user",
-                "required": false,
                 "description": "A discord user"
             }
         ]
@@ -73,8 +72,8 @@
             {
                 "type": 3,
                 "name": "code",
-                "required": false,
-                "description": "Valid Javascript code"
+                "description": "Valid Javascript code",
+                "required": true
             }
         ]
     }

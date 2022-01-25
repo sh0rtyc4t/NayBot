@@ -19,7 +19,7 @@ module.exports = async function (message) {
         text = text.join("\n");
 
         try {
-            const evalued = util.inspect(await eval(`(async()=>{${text}\n})()`), { depth: 1 }).slice(0, 3960);
+            const evalued = util.inspect(await eval(`(async()=>{${text}\n})()`), { depth: 2 }).slice(0, 3960);
             return message.channel.createMessage({ embeds: [new ctx.BaseEmbed(evalued.encode("js"), "Eval")] });
         } catch (e) {
             return message.channel.createMessage(`Houve um erro na execução do eval:\n\`${e}\``);
