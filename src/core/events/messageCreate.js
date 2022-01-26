@@ -12,14 +12,18 @@ module.exports = async function (message) {
     const t = i18.getFixedT(message.member?.guild?.preferredLocale || "en-US");
 
     if (content[0] === `${prefix}eval` && ctx.config.owners.includes(message.author.id)) {
-        let text = content.slice(1).join(" ")
+        let text = content.slice(1);
+        const params = text.filter(a => a.startsWith("-"));
+        text = text.slice(params.length).join(" ")
             .split(/\r?\n/);
         const last = text.pop();
-        text.push(`return ${last}`);
+        text.push(params.includes("-nr")
+            ? "return undefined"
+            : `return ${last}`);
         text = text.join("\n");
 
         try {
-            const evalued = util.inspect(await eval(`(async()=>{${text}\n})()`), { depth: 2 }).slice(0, 3960);
+            const evalued = util.inspect(await eval(`(async()=>{${text}\n})()`), { depth: params.find(p => p.startsWith("--depth="))?.slice(7) ?? 1 }).slice(0, 3960);
             return message.channel.createMessage({ embeds: [new ctx.BaseEmbed(evalued.encode("js"), "Eval")] });
         } catch (e) {
             return message.channel.createMessage(`Houve um erro na execução do eval:\n\`${e}\``);

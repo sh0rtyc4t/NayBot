@@ -1,7 +1,6 @@
 const bytes = require("bytes");
 const cpu = require("node-os-utils").cpu;
 module.exports = async function (interaction) {
-    interaction.defer();
     const discloudinfo = await (await fetch("https://discloud.app/status/bot/789123515882012683", {
         headers: { "api-token": ctx.config.discloudtoken }
     })).json();
