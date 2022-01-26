@@ -58,3 +58,12 @@ Eris.Message.prototype.createComponentCollector = function (options, callback, e
 Eris.CommandInteraction.prototype.reply = function (options, components) {
     return nay.sendMessage(this, options, components);
 };
+
+Eris.Message.prototype.reply = function (options, components) {
+    if (typeof options === "string" || typeof options === "number") options = {
+        content: String(options)
+    };
+    options.messageReference = { messageID: this.id };
+    options.allowedMentions = { repliedUser: options.mentionReply ?? true };
+    return nay.sendMessage(this.channel.id, options, components);
+};

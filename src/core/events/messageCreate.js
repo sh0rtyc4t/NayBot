@@ -5,6 +5,7 @@ const cld = require("child_process");
 const fs = require("fs");
 const bytes = require("bytes");
 const os = require("os");
+const moment = require("moment");
 
 module.exports = async function (message) {
     const prefix = ctx.config.prefix;
@@ -18,7 +19,7 @@ module.exports = async function (message) {
             .split(/\r?\n/);
         const last = text.pop();
         text.push(params.includes("-nr")
-            ? "return undefined"
+            ? `${last}\nreturn undefined`
             : `return ${last}`);
         text = text.join("\n");
 

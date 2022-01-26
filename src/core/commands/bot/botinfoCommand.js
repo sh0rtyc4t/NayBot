@@ -1,9 +1,12 @@
 const bytes = require("bytes");
 const cpu = require("node-os-utils").cpu;
 module.exports = async function (interaction) {
-    const discloudinfo = await (await fetch("https://discloud.app/status/bot/789123515882012683", {
-        headers: { "api-token": ctx.config.discloudtoken }
-    })).json();
+    await interaction.defer();
+    const discloudinfo = nay.instance === "nay"
+        ? await (await fetch("https://discloud.app/status/bot/789123515882012683", {
+            headers: { "api-token": ctx.config.discloudtoken }
+        })).json()
+        : null;
 
     const embed = {
         ...new ctx.BaseEmbed(),
@@ -30,7 +33,7 @@ module.exports = async function (interaction) {
             },
             {
                 name: "Uptime",
-                value: `- ${discloudinfo?.last_restart}`.encode("diff")
+                value: `- ${nay.formattedUptime}`.encode("diff")
             }
         ]
     };

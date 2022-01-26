@@ -1,5 +1,6 @@
 const { Client, Collection, Constants } = require("eris");
 const fs = require("fs");
+const moment = require("moment");
 
 module.exports = class Nay extends Client {
     constructor (token, ClientOptions) {
@@ -8,6 +9,10 @@ module.exports = class Nay extends Client {
         this.emojis = require(`${ctx.mainDir}/config/emojis.json`);
         this.commands = require(`${ctx.mainDir}/config/commands.json`);
         this.notes = new Collection("notes");
+    }
+
+    get formattedUptime () {
+        return moment.utc(this.uptime).format("HH:mm:ss");
     }
 
     loadCore () {
@@ -81,7 +86,7 @@ module.exports = class Nay extends Client {
             options.components = [
                 {
                     type: 1,
-                    components
+                    components: components.filter(c => c.type !== "file")
                 }
             ];
 
