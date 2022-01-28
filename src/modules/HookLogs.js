@@ -3,6 +3,7 @@ module.exports = class HookLogs {
         this.dmhook = webhooksData.dms;
         this.reporthook = webhooksData.reports;
         this.errorhook = webhooksData.errors;
+        this.guildhook = webhooksData.guilds;
     }
 
     dmLog (msgObj) {
@@ -13,6 +14,19 @@ module.exports = class HookLogs {
     reportLog (msgObj) {
         if (typeof msgObj === "string") msgObj = { content: msgObj };
         return nay.executeWebhook(this.reporthook.id, this.reporthook.token, msgObj);
+    }
+
+    guildLog (type, msgObj) {
+        if (typeof msgObj === "string") msgObj = { content: msgObj };
+        return nay.executeWebhook(this.guildhook.id, this.guildhook.token, {
+            ...msgObj,
+            avatarURL: type
+                ? "https://media.discordapp.net/attachments/897352579636400150/936601578020937778/discord-icon-green.png"
+                : "https://media.discordapp.net/attachments/897352579636400150/936601577609904158/discord-icon-red.png",
+            username: type
+                ? "Guild Create"
+                : "Guild Delete"
+        });
     }
 
     async errorLog (msgObj, editMsg) {

@@ -27,7 +27,6 @@ module.exports = async function (interaction) {
             },
             {
                 name: "Users",
-                // eslint-disable-next-line no-return-assign
                 value: String(nay.guilds.reduce((a, g) => a += g.memberCount, 0)).encode("js"),
                 inline: true
             },

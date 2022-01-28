@@ -76,7 +76,6 @@ module.exports = class Nay extends Client {
                     delete component.label;
                     component.min_values = component.values?.at(0) || 1;
                     component.max_values = component.values?.at(1) || 1;
-                    // eslint-disable-next-line no-return-assign
                     component.options.forEach(op => op.value ??= op.label.toLowerCase());
                 }
                 component.custom_id = component.name;
