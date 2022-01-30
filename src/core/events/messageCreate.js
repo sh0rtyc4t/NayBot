@@ -5,7 +5,7 @@ const cld = require("child_process");
 const fs = require("fs");
 const bytes = require("bytes");
 const os = require("os");
-const moment = require("moment");
+const hd = require("humanize-duration");
 
 module.exports = async function (message) {
     const prefix = ctx.config.prefix;

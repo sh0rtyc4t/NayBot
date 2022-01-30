@@ -23,5 +23,5 @@ module.exports = function (guild) {
 
     if (nay.instance === "nightly") return;
     nay.editChannel(ctx.config.servercountChannel, { name: `🚀❱ Servidores - ${nay.guilds.size}` });
-    nay.editChannel(ctx.config.membercountChannel, { name: `👥❱ Usuários - ${nay.guilds.reduce((a, g) => a += g.memberCount, 0)}` });
+    nay.editChannel(ctx.config.membercountChannel, { name: `👥❱ Usuários - ${nay.usersCount}` });
 };

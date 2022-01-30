@@ -32,7 +32,7 @@ module.exports = async function (interaction) {
             },
             {
                 name: "Uptime",
-                value: `- ${nay.formattedUptime}`.encode("diff")
+                value: `- ${nay.formattedUptime(t.lng.slice(0, -3))}`.encode("diff")
             }
         ]
     };

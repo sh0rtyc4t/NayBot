@@ -19,7 +19,7 @@ module.exports = async function () {
             })
             : await hasRegistred(cmd.name)
                 ? await wasModified(cmdData)
-                    ? nay.editCommand((await nay.getCommands()).find(c => c.name === cmd.name).id, cmdData) && console.log("has modifiado")
+                    ? nay.editCommand((await nay.getCommands()).find(c => c.name === cmd.name).id, cmdData)
                     : null
                 : nay.createCommand(cmdData);
     }

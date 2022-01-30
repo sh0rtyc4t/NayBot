@@ -1,6 +1,6 @@
 const { Client, Collection, Constants } = require("eris");
 const fs = require("fs");
-const moment = require("moment");
+const hd = require("humanize-duration");
 
 module.exports = class Nay extends Client {
     constructor (token, ClientOptions) {
@@ -11,8 +11,24 @@ module.exports = class Nay extends Client {
         this.notes = new Collection("notes");
     }
 
-    get formattedUptime () {
-        return moment.utc(this.uptime).format("HH:mm:ss");
+
+    get usersCount () {
+        return this.guilds.reduce((a, g) => a += g.memberCount, 0);
+    }
+
+    formattedUptime (language) {
+        return hd(this.uptime, {language,
+            units: [
+                "d",
+                "h",
+                "m",
+                "s"
+            ],
+            round: true,
+            largest: 2,
+            delimiter: language === "pt"
+                ? " e "
+                : " and "});
     }
 
     loadCore () {
@@ -93,6 +109,6 @@ module.exports = class Nay extends Client {
 
         return typeof channel === "object"
             ? channel.createMessage(options, files)
-            : nay.createMessage(channel, options, files);
+            : this.createMessage(channel, options, files);
     }
 };
