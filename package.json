@@ -33,6 +33,10 @@
     "name": "sh0rtyc4t",
     "discord": "sh0rtyc4t#9970"
   },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/sh0rtyc4t/NayBot.git"
+  },
   "license": "GPLv3",
   "description": "A discord bot using Eris"
 }

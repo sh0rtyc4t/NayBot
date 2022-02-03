@@ -19,7 +19,7 @@ ctx.BaseEmbed = function (description, title) {
     this.description = description;
     this.timestamp = new Date();
     this.footer = {
-        icon_url: nay.user.avatarURL,
+        icon_url: nay.user.dynamicAvatarURL("png", 512),
         text: nay.user.tag
     };
 

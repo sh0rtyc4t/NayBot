@@ -9,7 +9,7 @@ module.exports = class NayUser {
     }
 
     register () {
-        db.set(`users/${this._id}`, this.base);
+        return db.set(`users/${this._id}`, this.base);
     }
 
 };

@@ -41,15 +41,27 @@ String.prototype.encode = function (lang) {
  * @callback the end of the collector
  */
 Eris.Message.prototype.createComponentCollector = function (options, callback, endCallback) {
-    const listener = interaction => {
+    const listener = async interaction => {
         if (!(interaction instanceof Eris.ComponentInteraction) || this.id !== interaction.message.id) return;
         if (options.filter && !options.filter(interaction)) return;
+        await interaction.deferUpdate();
         return callback(interaction);
     };
 
     nay.on("interactionCreate", listener);
     setTimeout(() => {
         nay.removeListener("interactionCreate", listener);
+        options.disableOnEnd && this.edit({
+            components: [
+                {
+                    type: 1,
+                    components: this.components[0].components.map(c => ({
+                        ...c,
+                        disabled: true
+                    }))
+                }
+            ]
+        });
         endCallback && endCallback(this.components);
     }, options.time ?? 60000);
     return this;

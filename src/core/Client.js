@@ -11,7 +11,6 @@ module.exports = class Nay extends Client {
         this.notes = new Collection("notes");
     }
 
-
     get usersCount () {
         return this.guilds.reduce((a, g) => a += g.memberCount, 0);
     }
@@ -23,6 +22,20 @@ module.exports = class Nay extends Client {
                 "h",
                 "m",
                 "s"
+            ],
+            round: true,
+            largest: 2,
+            delimiter: language === "pt"
+                ? " e "
+                : " and "});
+    }
+
+    formattedCreatedAt (language) {
+        return hd(Date.now() - this.user.createdAt, {language,
+            units: [
+                "y",
+                "mo",
+                "d"
             ],
             round: true,
             largest: 2,
@@ -69,14 +82,12 @@ module.exports = class Nay extends Client {
         if (components) {
 
             for (const component of components) {
-                if (component.type === "file") {
-                    files.push({
-                        name: component.name,
-                        file: component.file || fs.readFileSync(component.path) || "Empty"
-                    });
-                    continue;
+                if (component.type === "file") files.push({
+                    name: component.name,
+                    file: component.file || fs.readFileSync(component.path) || "Empty"
+                });
 
-                } else if (component.type === "but") {
+                else if (component.type === "but") {
                     component.type = Constants.ComponentTypes.BUTTON;
                     component.style = component.url
                         ? Constants.ButtonStyles.LINK

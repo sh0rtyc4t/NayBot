@@ -6,6 +6,7 @@ const fs = require("fs");
 const bytes = require("bytes");
 const os = require("os");
 const hd = require("humanize-duration");
+const osu = require("node-os-utils");
 
 module.exports = async function (message) {
     const prefix = ctx.config.prefix;
@@ -23,8 +24,12 @@ module.exports = async function (message) {
             : `return ${last}`);
         text = text.join("\n");
 
+        const isStrict = params.includes("-strict")
+            ? "\n\"use strict\";"
+            : "";
+
         try {
-            const evalued = util.inspect(await eval(`(async()=>{${text}\n})()`), { depth: params.find(p => p.startsWith("-depth="))?.slice(7) ?? 1 }).slice(0, 3960);
+            const evalued = util.inspect(await eval(`${isStrict}\n(async()=>{\n${text}\n})()`), { depth: params.find(p => p.startsWith("-depth="))?.slice(7) ?? 1 }).slice(0, 3960);
             return message.channel.createMessage({ embeds: [new ctx.BaseEmbed(evalued.encode("js"), "Eval")] });
         } catch (e) {
             return message.channel.createMessage(`Houve um erro na execução do eval:\n\`${e}\``);
@@ -57,7 +62,7 @@ function executeDMLog (message) {
         thumbnail: { url: message.author.dynamicAvatarURL(null, 512)},
         description: (message.content || "Sem conteudo").encode("diff"),
         footer: {
-            icon_url: nay.user.avatarURL,
+            icon_url: nay.user.dynamicAvatarURL("png", 512),
             text: `Menssagem em DM de ${nay.user.tag}`
         }
     };

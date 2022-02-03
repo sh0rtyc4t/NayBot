@@ -1,3 +1,54 @@
 {
-    "ping": "Meu ping é de `{{latency}}ms`"
+    "ping": "Meu ping é de `{{latency}}ms`",
+    "botinfo": {
+        "embed": {
+            "title": "Informações",
+            "description": "Selecione uma das informações abaixo que você deseja ver sobre mim!"
+        },
+        "menuoptions": {
+            "first": {
+                "description": "Texto sobre a Nay"
+            },
+            "second": {
+                "label": "Estatísticas e Dados",
+                "description": "Estatísticas sobre a Nay no Discord"
+            },
+            "third": {
+                "label": "Host e Status",
+                "description": "Informações sobre uso de memória, CPU, etc..."
+            }
+        },
+        "nayembed": {
+            "title": "Olá, eu sou a Nay!",
+            "description": "Sou uma bot do Discord, criada pelo `{{ownerTag}}` há **{{createdAt}}** com a intenção de entreter e divertir os membros dos servidores onde eu estou!",
+            "fields": [
+                {
+                    "name": "Agradecimentos",
+                    "value": "- Ao `{{coOwner}}` por estar sempre me ajudando a ficar mais completa\n- A todos os meus contribuidores no meu [Github]({{github}})\n- A toda staff do [meu servidor]({{serverInvite}})\n- E a você por estar usando meus comandos :heart:"
+                }
+            ]
+        },
+        "statisticsembed": {
+            "title": "Estatísticas e Dados",
+            "fields": [
+                "Servidores",
+                "Usuários",
+                "Instância",
+                "Comandos disponíveis",
+                "Comandos executados",
+                "Versão",
+                "Comandos executados aqui",
+                "Comandos executados por você"
+            ]
+        },
+        "statusembed": {
+            "title": "Host e Status",
+            "fields": [
+                "Uso de RAM",
+                "Uso de CPU",
+                "Versão do NodeJS",
+                "Versão do Eris"
+            ]
+        }
+    }
 }

@@ -1,3 +1,54 @@
 {
-    "ping": "My ping is `{{latency}}ms`"
+    "ping": "My ping is `{{latency}}ms`",
+    "botinfo": {
+        "embed": {
+            "title": "Informations",
+            "description": "Select one of the information below that you would like to see about me!"
+        },
+        "menuoptions": {
+            "first": {
+                "description": "Text about Nay"
+            },
+            "second": {
+                "label": "Statistics and Data",
+                "description": "Statistics about Nay on Discord"
+            },
+            "third": {
+                "label": "Host and Status",
+                "description": "Informations about memory usage, CPU, etc..."
+            }
+        },
+        "nayembed": {
+            "title": "Hello, i am Nay!",
+            "description": "I'm a Discord bot, created by `{{ownerTag}}` ago **{{createdAt}}** with the intention of entertaining and divert the members of the servers where i am!",
+            "fields": [
+                {
+                    "name": "Acknowledgments",
+                    "value": "- To `{{coOwner}}` for always helping me to be more complete\n- To all my contributors on my [Github]({{github}})\n- To all the staff at [my server]( {{serverInvite}})\n- And to you for using my commands :heart:"
+                }
+            ]
+        },
+        "statisticsembed": {
+            "title": "Statistics and Data",
+            "fields": [
+                "Servers",
+                "Users",
+                "Instance",
+                "Available commands",
+                "Commands executed",
+                "Version",
+                "Commands run here",
+                "Commands run by you"
+            ]
+        },
+        "statusembed": {
+            "title": "Host e Status",
+            "fields": [
+                "RAM usage",
+                "CPU usage",
+                "NodeJS version",
+                "Eris version"
+            ]
+        }
+    }
 }

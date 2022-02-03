@@ -5,7 +5,11 @@ module.exports = async function (interaction) {
     if (!(interaction instanceof ctx.Eris.CommandInteraction)) return;
     global.t = i18.getFixedT(interaction.member?.guild?.preferredLocale || "en-US");
 
-    if (!await NayUser.check(interaction.member.id)) new NayUser(interaction.member.id).register();
+    if (!await NayUser.check(interaction.member.id)) await new NayUser(interaction.member.id).register();
+    await db.set(`guilds/${interaction.guildID}`, { commands: 0 }, true);
+    db.add(`users/${interaction.member.id}/commands`);
+    db.add("nay/totalCommands");
+    db.add(`guilds/${interaction.guildID}/commands`);
 
     const command = interaction.data.name;
     const commandData = nay.commands.find(c => c.name === command);

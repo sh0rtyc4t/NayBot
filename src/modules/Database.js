@@ -26,8 +26,9 @@ module.exports = class Database {
         });
     }
 
-    set (reference, value) {
+    async set (reference, value, ifNoHas) {
         const ref = this.getRef(reference);
+        if (ifNoHas && await this.exists(reference)) return false;
         return firebase.set(ref, value);
     }
 
@@ -41,5 +42,17 @@ module.exports = class Database {
         return new Promise((res, rej) => {
             firebase.onValue(ref, snapshot => res(snapshot.exists()), rej);
         });
+    }
+
+    async add (reference, value = 1) {
+        const val = await this.getVal(reference);
+        if (!val) return this.set(reference, value);
+        return this.set(reference, val + Number(value));
+    }
+
+    async subtract (reference, value = 1) {
+        const val = await this.getVal(reference);
+        if (!val) return this.set(reference, value);
+        this.set(reference, val - Number(value));
     }
 };
