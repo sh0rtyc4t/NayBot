@@ -3,6 +3,7 @@ const Locales = require("./src/modules/Locales.js");
 const Prototypes = require("./src/utils/prototypes.js");
 
 const nay = new BotClient().getBot();
+
 // eslint-disable-next-line no-new
 new Prototypes(nay);
 new Locales().init();
