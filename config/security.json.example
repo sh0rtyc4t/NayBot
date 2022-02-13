@@ -1,0 +1,23 @@
+{
+    "INSTANCE1": {
+        "firebaseConfig": {
+            // your firebase config object
+        },
+        "token": "",
+        "prefix": ""
+    },
+
+    // optional
+    "INSTANCE2": {
+        "firebaseConfig": {
+            // your firebase config object
+        },
+        "token": "",
+        "prefix": ""
+    },
+
+    // optional
+    "any": {
+        // for any instance
+    }
+}

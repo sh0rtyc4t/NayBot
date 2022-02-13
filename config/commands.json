@@ -67,6 +67,8 @@
         "acess": {
             "forDevs": true
         },
+        "DM": false,
+        "thread": false,
         "dir": "dev/evalCommand",
         "options": [
             {
@@ -74,6 +76,21 @@
                 "name": "code",
                 "description": "Valid Javascript code",
                 "required": true
+            },
+            {
+                "type": 10,
+                "name": "depth",
+                "description": "The depth of the return"
+            },
+            {
+                "type": 5,
+                "name": "strict",
+                "description": "If eval is strict"
+            },
+            {
+                "type": 5,
+                "name": "noreturn",
+                "description": "If eval will not return anything"
             }
         ]
     }

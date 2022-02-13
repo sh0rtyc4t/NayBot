@@ -1,0 +1,26 @@
+{
+    "intents": 0,
+
+    "shardAmount": 1,
+
+    "owners": [],
+
+    "devGuilds": [],
+
+    "dmLogChannel": "",
+
+    "alertsLogChannel": "",
+
+    "guildsLogChannel": "",
+
+    "serversCountChannel": "",
+    
+    "membersCountChannel": "",
+
+    "baseColor": "#FF0000",
+
+    "urls": {
+        "botServerInvite": "",
+        "botRepoUrl": ""
+    }
+}

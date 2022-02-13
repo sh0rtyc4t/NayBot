@@ -1,22 +1,28 @@
-const { Client, Collection, Constants } = require("eris");
-const fs = require("fs");
+const { Client, Constants } = require("eris");
+const { readFileSync } = require("fs");
 const hd = require("humanize-duration");
+const CommandHandler = require("../core/handlers/CommandHandler.js");
+const EventHandler = require("../core/handlers/EventHandler.js");
+const Logger = require("./Logger.js");
 
 module.exports = class Nay extends Client {
     constructor (token, ClientOptions) {
         super(token, ClientOptions);
         this.instance = ClientOptions.instance;
-        this.emojis = require(`${ctx.mainDir}/config/emojis.json`);
-        this.commands = require(`${ctx.mainDir}/config/commands.json`);
-        this.notes = new Collection("notes");
+        this.cmdHand = new CommandHandler(this);
+        this.evtHand = new EventHandler(this);
+        this.isDev = this.instance === "nightly";
+        this.log = new Logger(this);
+        this.emojis = require("../../config/emojis.json");
     }
 
     get usersCount () {
-        return this.guilds.reduce((a, g) => a += g.memberCount, 0);
+        return this.guilds.reduce((ac, g) => ac += g.memberCount, 0);
     }
 
-    formattedUptime (language) {
-        return hd(this.uptime, {language,
+    formattedUptime (t) {
+        return hd(this.uptime, {
+            language: t.lng.slice(0, 2),
             units: [
                 "d",
                 "h",
@@ -25,13 +31,13 @@ module.exports = class Nay extends Client {
             ],
             round: true,
             largest: 2,
-            delimiter: language === "pt"
-                ? " e "
-                : " and "});
+            delimiter: t("misc:humanize-date-delimiter")
+        });
     }
 
-    formattedCreatedAt (language) {
-        return hd(Date.now() - this.user.createdAt, {language,
+    formattedCreatedAt (t) {
+        return hd(Date.now() - this.user.createdAt, {
+            language: t.lng.slice(0, 2),
             units: [
                 "y",
                 "mo",
@@ -39,39 +45,8 @@ module.exports = class Nay extends Client {
             ],
             round: true,
             largest: 2,
-            delimiter: language === "pt"
-                ? " e "
-                : " and "});
-    }
-
-    loadCore () {
-        require(`${ctx.mainDir}/src/core/handlers/putCommands.js`)();
-        require(`${ctx.mainDir}/src/modules/locales.js`)();
-
-        // eslint-disable-next-line new-cap
-        const db = new (require(`${ctx.mainDir}/src/modules/Database.js`))(ctx.config.firebaseConfig);
-        db.connect();
-        global.db = db;
-    }
-
-    initiate () {
-        this.loadUtils();
-        require(`${ctx.mainDir}/src/core/handlers/loadEvents.js`)();
-        try {
-            this.connect();
-        } catch (e) {
-            this.emit("error", "Error on iniciate Client");
-        }
-    }
-
-    loadUtils () {
-        require(`${ctx.mainDir}/src/utils/prototypes.js`);
-
-        const files2 = fs.readdirSync(`${ctx.mainDir}/src/utils/functions`);
-        for (const file of files2) require(`${ctx.mainDir}/src/utils/functions/${file}`);
-
-        const HookLogs = require(`${ctx.mainDir}/src/modules/HookLogs.js`);
-        ctx.hooks = new HookLogs(ctx.config.logWebhooks);
+            delimiter: t("misc:humanize-date-delimiter")
+        });
     }
 
     sendMessage (channel, options, components) {
@@ -84,7 +59,7 @@ module.exports = class Nay extends Client {
             for (const component of components) {
                 if (component.type === "file") files.push({
                     name: component.name,
-                    file: component.file || fs.readFileSync(component.path) || "Empty"
+                    file: component.file || readFileSync(component.path) || "Empty"
                 });
 
                 else if (component.type === "but") {

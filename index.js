@@ -1,39 +1,15 @@
-const Eris = require("eris");
-const path = require("path");
-const Nay = require("./src/core/Client.js");
-const security = require("./config/security.json");
-const settings = require("./config/settings.json");
-const cmdLineArgs = process.argv.slice(2);
-global.fetch = require("node-fetch");
+const BotClient = require("./src/structures/BotClient.js");
+const Locales = require("./src/modules/Locales.js");
+const Prototypes = require("./src/utils/prototypes.js");
 
-let instance = "nay";
-// replace "nay" to your bot name
-if (cmdLineArgs.includes("--dev")) instance = "nightly";
-// if you have a test bot, replace "nightly" to your test bot name
+const nay = new BotClient().getBot();
+// eslint-disable-next-line no-new
+new Prototypes(nay);
+new Locales().init();
+nay.evtHand.linkAll();
+nay.connect();
 
-const config = {
-    ...security[instance],
-    ...security.any,
-    ...settings
-};
-
-global.ctx = {
-    Eris,
-    mainDir: __dirname,
-    path,
-    config
-};
-
-global.nay = new Nay(`Bot ${config.token}`, {
-    intents: config.intents,
-    maxShards: 1,
-    restMode: true,
-    instance
-});
-
-const emitError = u => nay.emit("error", u.message);
-process.on("warning", w => nay.emit("warn", w.message));
+const emitError = u => nay.emit("error", u);
+process.on("warning", w => nay.emit("warn", w));
 process.on("uncaughtException", emitError);
 process.on("unhandledRejection", emitError);
-
-nay.initiate();
