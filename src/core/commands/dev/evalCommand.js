@@ -16,14 +16,15 @@ module.exports = class EvalCommand extends Command {
 
         depth ??= 2;
         strict
-            ? strict = "use strict;"
+            ? strict = "\"use strict\";"
             : strict = "";
 
         code[code.length - 1] = noreturn
             ? "return undefined;"
             : `return ${code.at(-1)}`;
+
         try {
-            const evalued = util.inspect(await eval(`${strict}(async()=>{${code.join(" ")}})();`), { depth }).slice(0, 3990);
+            const evalued = util.inspect(await eval(`${strict}\n(async()=>{${code.join(" ")}})();`), { depth }).slice(0, 3990);
             return interaction.reply({ embeds: [this.makeBaseEmbed(evalued.encode("js"), "Eval")] });
         } catch (error) {
             return interaction.reply(`Houve um erro na execução do eval:\n\`${error}\``);

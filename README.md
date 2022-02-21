@@ -10,7 +10,7 @@ A Discord bot using [Eris](https://github.com/abalabahaha/eris/) library, Nay is
 * [NPM](https://npmjs.com) >= **8.0.0***
 * [Firebase Firestore Database](https://firebase.google.com/)
 
-*It may work on versions below the list, however, NOT TESTED*
+**It may work on versions below the list, however, NOT TESTED*
 
 ### Preparation
 
