@@ -35,7 +35,7 @@
             {
                 "type": 6,
                 "name": "user",
-                "description": "A discord user"
+                "description": "A Discord user"
             }
         ]
     },
@@ -91,6 +91,29 @@
                 "type": 5,
                 "name": "noreturn",
                 "description": "If eval will not return anything"
+            }
+        ]
+    },
+    {
+        "name": "batatas",
+        "description": "Shows your amount of batatas",
+        "help": {
+            "usage": "/batatas @user|id",
+            "example": "/batatas @Nay"
+        },
+        "acess": {
+            "forDevs": false,
+            "nayPermissions": null,
+            "memberPermissions": null
+        },
+        "DM": true,
+        "thread": true,
+        "dir": "batatas/batatasCommand",
+        "options": [
+            {
+                "type": 6,
+                "name": "user",
+                "description": "A Discord user"
             }
         ]
     }

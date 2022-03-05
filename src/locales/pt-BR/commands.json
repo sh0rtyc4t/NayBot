@@ -50,5 +50,11 @@
                 "Versão do Eris"
             ]
         }
+    },
+    "batatas": {
+        "embed": {
+            "title": "Batatas",
+            "description": "**{{tag}}** tem `{{batatas}}` batatas no armazém"
+        }
     }
 }

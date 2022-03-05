@@ -1,7 +1,6 @@
 const Eris = require("eris");
 const Base = require("../structures/Base");
 const firestore = require("firebase-admin/firestore");
-// [ jerry-rig ] -  for some reason loading this dependency after the prototypes causes an error in the code
 
 module.exports = class Prototypes extends Base {
     constructor (nay) {
@@ -136,18 +135,37 @@ module.exports = class Prototypes extends Base {
 
         });
 
+        let existentReferencesCache = [];
         const get = firestore.DocumentReference.prototype.get;
+        const docDelete = firestore.DocumentReference.prototype.delete;
+
         // Firestore DocumentReference
         Object.defineProperties(firestore.DocumentReference.prototype, {
             "get": {
-                async value () {
-                    return (await get.call(this)).data() ?? null;
+                async value (objPath) {
+                    let data = (await get.call(this)).data() ?? null;
+                    if (data !== null && objPath) data = objPath.split(".").reduce((object, property) => (object instanceof Object
+                        ? object[property]
+                        : null), data);
+                    return data;
                 }
             },
 
             "exists": {
                 async value () {
-                    return (await get.call(this)).exists;
+                    if (existentReferencesCache.includes(this.id)) return true;
+                    if ((await get.call(this)).exists) {
+                        existentReferencesCache.push(this.id);
+                        return true;
+                    }
+                    return false;
+                }
+            },
+
+            "delete": {
+                value () {
+                    existentReferencesCache = existentReferencesCache.filter(e => e !== this.id);
+                    docDelete.call(this);
                 }
             }
 

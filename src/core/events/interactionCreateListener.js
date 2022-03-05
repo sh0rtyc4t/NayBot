@@ -18,7 +18,7 @@ module.exports = class GuildCreateEvent extends Event {
 
         if (await authorDoc.exists()) authorDoc.update({ commands: (await authorDoc.get()).commands + 1 });
         else authorDoc.create({
-            potatos: 0,
+            batatas: 0,
             commands: 1
         });
 

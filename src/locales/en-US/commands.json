@@ -50,5 +50,11 @@
                 "Eris version"
             ]
         }
+    },
+    "batatas": {
+        "embed": {
+            "title": "Batatas",
+            "description": "**{{tag}}** has `{{batatas}}` batatas in the warehouse"
+        }
     }
 }
