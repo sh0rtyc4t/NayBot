@@ -6,8 +6,8 @@ module.exports = class BatatasCommand extends Command {
     }
 
     async execute (interaction, t, { authorDoc }) {
-        let batatas = authorDoc.batatas;
-        let user = interaction.user;
+        let batatas = await authorDoc.get("batatas");
+        let user = interaction.member.user;
 
         if (interaction.data.options?.at(0)?.value) {
             user = await this.nay.getRESTUser(interaction.data.options[0].value);

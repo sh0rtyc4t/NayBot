@@ -167,6 +167,15 @@ module.exports = class Prototypes extends Base {
                     existentReferencesCache = existentReferencesCache.filter(e => e !== this.id);
                     docDelete.call(this);
                 }
+            },
+
+            "add": {
+                async value (prop, amount = 1) {
+                    let propVal = await this.get(prop);
+                    propVal ??= 0;
+                    propVal += amount;
+                    return this.update(Object.fromEntries([[prop, propVal]]));
+                }
             }
 
         });

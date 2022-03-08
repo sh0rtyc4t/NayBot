@@ -116,5 +116,32 @@
                 "description": "A Discord user"
             }
         ]
+    },
+    {
+        "name": "addbatatas",
+        "description": "Adds an amount of batatas to a user",
+        "help": {
+            "usage": "/addbatatas @user|id [number]",
+            "example": "/addbatatas @Nay 90"
+        },
+        "acess": {
+            "forDevs": true
+        },
+        "DM": false,
+        "thread": false,
+        "dir": "dev/addBatatasCommand",
+        "options": [
+            {
+                "type": 6,
+                "name": "user",
+                "description": "A Discord user",
+                "required": true
+            },
+            {
+                "type": 10,
+                "name": "amount",
+                "description": "Amount of batatas"
+            }
+        ]
     }
 ]

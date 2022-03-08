@@ -1,7 +1,7 @@
 const Event = require("../../structures/Event");
 const i18 = require("i18next");
 
-module.exports = class GuildCreateEvent extends Event {
+module.exports = class InteractionCreateEvent extends Event {
     constructor (nay) {
         super(nay);
     }

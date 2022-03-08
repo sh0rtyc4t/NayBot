@@ -1,6 +1,6 @@
 const Event = require("../../structures/Event");
 
-module.exports = class GuildCreateEvent extends Event {
+module.exports = class MessageUpdateEvent extends Event {
     constructor (nay) {
         super(nay);
     }

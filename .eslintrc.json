@@ -19,7 +19,7 @@
         ],
         "array-element-newline": [
             "error",
-            { "ArrayExpression": "always", "ArrayPattern": "never" }
+            { "ArrayExpression": "consistent", "ArrayPattern": { "minItems": 2 } }
         ],
         "arrow-body-style": "error",
         "arrow-parens": [

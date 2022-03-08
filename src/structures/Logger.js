@@ -26,7 +26,7 @@ module.exports = class Logger extends Base {
             this.alertLog(stack, "Error", interaction);
         }
 
-        console.error(`\x1B[37m\x1B[41m[ ERROR ] - ${stack.message ?? stack}\x1B[49m\x1B[39m`);
+        console.error(`\x1B[37m\x1B[41m[ ERROR ] - ${stack.stack ?? stack}\x1B[49m\x1B[39m`);
 
     }
 
