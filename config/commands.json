@@ -143,5 +143,32 @@
                 "description": "Amount of batatas"
             }
         ]
+    },
+    {
+        "name": "removebatatas",
+        "description": "Removes an amount of batatas to a user",
+        "help": {
+            "usage": "/removebatatas @user|id [number]",
+            "example": "/removebatatas @Nay 90"
+        },
+        "acess": {
+            "forDevs": true
+        },
+        "DM": false,
+        "thread": false,
+        "dir": "dev/removeBatatasCommand",
+        "options": [
+            {
+                "type": 6,
+                "name": "user",
+                "description": "A Discord user",
+                "required": true
+            },
+            {
+                "type": 10,
+                "name": "amount",
+                "description": "Amount of batatas"
+            }
+        ]
     }
 ]

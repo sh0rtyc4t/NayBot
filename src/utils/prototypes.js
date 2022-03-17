@@ -176,6 +176,15 @@ module.exports = class Prototypes extends Base {
                     propVal += amount;
                     return this.update(Object.fromEntries([[prop, propVal]]));
                 }
+            },
+
+            "subtract": {
+                async value (prop, amount = 1) {
+                    let propVal = await this.get(prop);
+                    propVal ??= 0;
+                    propVal -= amount;
+                    return this.update(Object.fromEntries([[prop, propVal]]));
+                }
             }
 
         });
