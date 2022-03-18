@@ -30,7 +30,7 @@
         },
         "DM": true,
         "thread": true,
-        "dir": "utilitys/avatarCommand",
+        "dir": "utilities/avatarCommand",
         "options": [
             {
                 "type": 6,
@@ -168,6 +168,29 @@
                 "type": 10,
                 "name": "amount",
                 "description": "Amount of batatas"
+            }
+        ]
+    },
+    {
+        "name": "say",
+        "description": "Resends the text you type",
+        "help": {
+            "usage": "/say text",
+            "example": "/say Forróboys, o barulho é esse"
+        },
+        "acess": {
+            "forDevs": false,
+            "nayPermissions": null,
+            "memberPermissions": null
+        },
+        "DM": true,
+        "thread": true,
+        "dir": "utilities/sayCommand",
+        "options": [
+            {
+                "type": 3,
+                "name": "text",
+                "description": "A text"
             }
         ]
     }
