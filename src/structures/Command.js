@@ -7,7 +7,7 @@ module.exports = class Command extends Base {
     }
 
     execute (interaction, t) {
-        if (typeof interaction !== "object" || typeof t !== "function") return this.nay.emit("error", "Command executed without necessary parameters");
+        if (!isObject(interaction) || typeof t !== "function") return this.nay.emit("error", "Command executed without necessary parameters");
         interaction.createError(t("errors:commandNotFound"));
     }
 };

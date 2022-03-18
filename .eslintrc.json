@@ -5,6 +5,9 @@
         "es2021": true,
         "node": true
     },
+    "globals": {
+        "isObject": "readonly"
+    },
     "parserOptions": {
         "ecmaVersion": "latest"
     },
@@ -19,7 +22,7 @@
         ],
         "array-element-newline": [
             "error",
-            { "ArrayExpression": "consistent", "ArrayPattern": { "minItems": 2 } }
+            { "ArrayExpression": "consistent", "ArrayPattern": "never" }
         ],
         "arrow-body-style": "error",
         "arrow-parens": [
@@ -100,7 +103,7 @@
         "max-depth": "error",
         "max-nested-callbacks": "error",
         "max-params": "error",
-        "multiline-ternary": "error",
+        "multiline-ternary": ["error", "always-multiline"],
         "new-cap": "error",
         "new-parens": "error",
         "newline-per-chained-call": "error",

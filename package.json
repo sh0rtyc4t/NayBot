@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js --development",
+    "dev": "nodemon index.js --development --debug",
     "lint": "eslint --fix .",
     "validate": "eslint --ext .js ."
   },

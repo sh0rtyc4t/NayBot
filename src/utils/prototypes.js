@@ -15,7 +15,7 @@ module.exports = class Prototypes extends Base {
                 }
             },
             "isEmpty": {
-                value () {
+                get () {
                     return Boolean(this.amount <= 0);
                 }
             }

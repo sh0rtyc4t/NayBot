@@ -14,6 +14,7 @@ module.exports = class Nay extends Client {
         this.isDev = this.instance === "nightly";
         this.log = new Logger(this);
         this.emojis = require("../../config/emojis.json");
+        this.debugMode = process.argv.includes("--debug");
     }
 
     get usersCount () {
@@ -93,7 +94,7 @@ module.exports = class Nay extends Client {
 
         }
 
-        return typeof channel === "object"
+        return isObject(channel)
             ? channel.createMessage(options, files)
             : this.createMessage(channel, options, files);
     }

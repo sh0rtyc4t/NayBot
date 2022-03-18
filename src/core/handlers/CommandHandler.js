@@ -47,11 +47,13 @@ module.exports = class CommandHandler extends Base {
         if (await this._wasRegistred(data.name)) {
             if (await this._wasModified(data.name)) {
                 const id = (await this.getCommandByName(data.name)).id;
-                return this.nay.editCommand(id, data);
+                await this.nay.editCommand(id, data);
+                return this.nay.log.commandControl("update", data.name, false);
             }
             return data;
         }
-        return this.nay.createCommand(data);
+        this.nay.createCommand(data);
+        return this.nay.log.commandControl("create", data.name, false);
     }
 
     async postDevCommand (data) {
@@ -63,16 +65,18 @@ module.exports = class CommandHandler extends Base {
                 if (await this._wasModified(data.name, devGuild)) {
                     const id = (await this.getCommandByName(data.name, devGuild)).id;
                     this.nay.editGuildCommand(devGuild, id, data);
+                    this.nay.log.commandControl("update", data.name, true);
                     continue;
                 }
                 continue;
             }
             const command = await this.nay.createGuildCommand(devGuild, data);
-            this.nay.editCommandPermissions(devGuild, command.id, this.config.owners.map(id => ({
+            await this.nay.editCommandPermissions(devGuild, command.id, this.config.owners.map(id => ({
                 id,
                 type: 2,
                 permission: true
             })));
+            this.nay.log.commandControl("create", data.name, true);
         }
 
         return data;
@@ -80,9 +84,10 @@ module.exports = class CommandHandler extends Base {
 
     async deleteCommand (commandName, guildID) {
         const id = (await this.getCommandByName(commandName, guildID)).id;
-        return guildID
+        await guildID
             ? this.nay.deleteGuildCommand(guildID, id)
             : this.nay.deleteCommand(id);
+        return this.nay.log.commandControl("delete", commandName, Boolean(guildID));
     }
 
     async deleteAll ({ guildCommands, globalCommands }) {

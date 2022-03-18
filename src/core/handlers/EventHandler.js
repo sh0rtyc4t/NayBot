@@ -12,10 +12,11 @@ module.exports = class EventHandler extends Base {
     linkAll () {
         for (const eventFile of this.eventFiles) {
             if (!eventFile.endsWith("Listener.js")) {
-                this.nay.emit("warn", `Evento desconhecido "${eventFile}" na pasta de eventos`);
+                console.log(`Evento desconhecido "${eventFile}" na pasta de eventos`);
                 continue;
             }
 
+            if (eventFile === "debugListener.js" && !this.nay.debugMode) continue;
             this.loadListener(eventFile);
             this.pullEvent(eventFile.slice(0, -11));
         }

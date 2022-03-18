@@ -26,7 +26,10 @@ module.exports = class Logger extends Base {
             this.alertLog(stack, "Error", interaction);
         }
 
-        console.error(`\x1B[37m\x1B[41m[ ERROR ] - ${stack.stack ?? stack}\x1B[49m\x1B[39m`);
+        if (isObject(stack)) this.nay.debugMode
+            ? stack = stack.stack
+            : stack = stack.message;
+        console.error(`\x1B[37m\x1B[41m[ ERROR ] - ${stack}\x1B[49m\x1B[39m`);
 
     }
 
@@ -40,6 +43,25 @@ module.exports = class Logger extends Base {
 
     debug (message) {
         console.debug(`\x1B[37m\x1B[45m[ DEBUG ] - ${message}\x1B[49m\x1B[39m`);
+    }
+
+    commandControl (logType, commandName, isDev) {
+        let message = null;
+        isDev = isDev ? " de desenvolvedores" : " global";
+        switch (logType) {
+        case "create":
+            message = `Criando o comando${isDev}: "${commandName}"`;
+            break;
+
+        case "update":
+            message = `Atualizando configurações no comando${isDev}: "${commandName}"`;
+            break;
+
+        case "delete":
+            message = `Deletando o comando${isDev}: "${commandName}"`;
+            break;
+        }
+        console.log(`\x1B[37m\x1B[44m[ COMMAND-CONTROL ] - ${message}\x1B[49m\x1B[39m`);
     }
 
     dmLog (message) {
