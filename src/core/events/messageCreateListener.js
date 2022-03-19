@@ -58,8 +58,11 @@ module.exports = class MessageCreateEvent extends Event {
             : "";
 
         try {
+            const startTime = Date.now();
             const evalued = util.inspect(await eval(`${isStrict}\n(async()=>{\n${args.join("\n")}\n})()`), { depth }).slice(0, 3990);
-            return message.channel.createMessage({ embeds: [this.makeBaseEmbed(evalued.encode("js"), "Eval")] });
+            const evalEmbed = this.makeBaseEmbed(evalued.encode("js"), "Eval");
+            evalEmbed.footer.text = `${Date.now() - startTime}ms`;
+            return message.channel.createMessage({ embeds: [evalEmbed] });
         } catch (error) {
             return message.channel.createMessage(`Houve um erro na execução do eval:\n\`${error}\``);
         }

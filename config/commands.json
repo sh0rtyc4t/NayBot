@@ -94,6 +94,7 @@
             }
         ]
     },
+
     {
         "name": "batatas",
         "description": "Shows your amount of batatas",
@@ -117,6 +118,7 @@
             }
         ]
     },
+
     {
         "name": "addbatatas",
         "description": "Adds an amount of batatas to a user",
@@ -144,6 +146,7 @@
             }
         ]
     },
+
     {
         "name": "removebatatas",
         "description": "Removes an amount of batatas to a user",
@@ -171,6 +174,7 @@
             }
         ]
     },
+
     {
         "name": "say",
         "description": "Resends the text you type",
@@ -191,6 +195,28 @@
                 "type": 3,
                 "name": "text",
                 "description": "A text"
+            }
+        ]
+    },
+
+    {
+        "name": "cld",
+        "description": "Run a command in a new terminal",
+        "help": {
+            "usage": "/cld command",
+            "example": "/cld echo hello"
+        },
+        "acess": {
+            "forDevs": true
+        },
+        "DM": false,
+        "thread": false,
+        "dir": "dev/cldCommand",
+        "options": [
+            {
+                "type": 3,
+                "name": "args",
+                "description": "Arguments that will be used on the command line"
             }
         ]
     }
