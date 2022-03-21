@@ -122,12 +122,12 @@ module.exports = class Logger extends Base {
 
     guildLog (logType, guild) {
         const gcEmbed = {
-            ...new this.BaseEmbed(null, "Novo Servidor"),
+            ...this.makeBaseEmbed(null, "Novo Servidor"),
             color: this.resolveColor("#0AE714")
         };
 
         const gdEmbed = {
-            ...new this.BaseEmbed(null, "Servidor Perdido"),
+            ...this.makeBaseEmbed(null, "Servidor Perdido"),
             color: this.resolveColor("#F02525")
         };
 

@@ -219,5 +219,70 @@
                 "description": "Arguments that will be used on the command line"
             }
         ]
+    },
+
+    {
+        "name": "language",
+        "description": "Set a language for me",
+        "help": {
+            "usage": "/language português|english",
+            "example": "/language english"
+        },
+        "acess": {
+            "forDevs": false,
+            "nayPermissions": null,
+            "memberPermissions": null
+        },
+        "DM": true,
+        "thread": true,
+        "dir": "bot/languageCommand",
+        "options": [
+            {
+                "type": 1,
+                "name": "guild",
+                "description": "Change guild language",
+                "options": [
+                    {
+                        "type": 3,
+                        "name": "lang",
+                        "description": "English or portuguese (Inglês ou português)",
+                        "required": true,
+                        "choices": [
+                            {
+                                "name": "English US(English)",
+                                "value": "en-US"
+                            },
+                            {
+                                "name": "Português BR(Portuguese)",
+                                "value": "pt-BR"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": 1,
+                "name": "you",
+                "description": "Change your language",
+                "options": [
+                    {
+                        "type": 3,
+                        "name": "lang",
+                        "description": "English or portuguese (Inglês ou português)",
+                        "required": true,
+                        "choices": [
+                            {
+                                "name": "English US(English)",
+                                "value": "en-US"
+                            },
+                            {
+                                "name": "Português BR(Portuguese)",
+                                "value": "pt-BR"
+                            }
+                        ]
+                    }
+                ]
+            }      
+        ]
     }
 ]

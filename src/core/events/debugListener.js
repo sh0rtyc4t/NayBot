@@ -6,6 +6,6 @@ module.exports = class DebugEvent extends Event {
     }
 
     on (message) {
-        this.nay.log.debug(message);
+        return this.nay.log.debug(message);
     }
 };

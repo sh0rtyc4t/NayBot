@@ -19,7 +19,8 @@ module.exports = class InteractionCreateEvent extends Event {
         if (await authorDoc.exists()) authorDoc.update({ commands: (await authorDoc.get()).commands + 1 });
         else authorDoc.create({
             batatas: 0,
-            commands: 1
+            commands: 1,
+            locale: null
         });
 
         if (await guildDoc.exists()) guildDoc.update({ commands: (await guildDoc.get()).commands + 1 });

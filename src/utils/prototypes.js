@@ -135,6 +135,18 @@ module.exports = class Prototypes extends Base {
 
         });
 
+        Object.defineProperties(firestore.CollectionReference.prototype, {
+            "getAll": {
+                async value () {
+                    const snapshotQuery = await this.get();
+                    return snapshotQuery.docs.map(doc => ({
+                        id: doc.id,
+                        ...doc.data()
+                    }));
+                }
+            }
+        });
+
         let existentReferencesCache = [];
         const get = firestore.DocumentReference.prototype.get;
         const docDelete = firestore.DocumentReference.prototype.delete;
