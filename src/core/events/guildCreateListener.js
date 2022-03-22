@@ -17,6 +17,10 @@ module.exports = class GuildCreateEvent extends Event {
             return c.type === 0 && perm.has("viewChannel") && perm.has("sendMessages") && perm.has("embedLinks");
         });
         const t = i18.getFixedT(guild.preferredLocale);
+        this.db.guilds.doc(guild.id).create({
+            locale: guild.preferredLocale,
+            commands: 0
+        });
 
         if (welcomeChannel) {
             const embed = this.makeBaseEmbed(`
@@ -28,7 +32,6 @@ module.exports = class GuildCreateEvent extends Event {
 
             welcomeChannel.createMessage({ embed });
         }
-
 
         return guild;
     }
