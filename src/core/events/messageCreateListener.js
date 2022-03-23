@@ -15,8 +15,9 @@ module.exports = class MessageCreateEvent extends Event {
     }
 
     async on (message) {
+        if (!message.guildID && message.type !== 20) return this.nay.log.dmLog(message);
         const prefix = this.config.prefix;
-        const content = message.content.split(" ");
+        const content = message.content?.split(" ");
         const args = content.slice(1);
         const t = i18.getFixedT(message.member?.guild?.preferredLocale || "en-US");
 
@@ -32,7 +33,6 @@ module.exports = class MessageCreateEvent extends Event {
             }
         }
 
-        if (!message.guildID) return this.nay.log.dmLog(message);
     }
 
     async executeEval (args, message) {

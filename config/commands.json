@@ -245,7 +245,7 @@
                     {
                         "type": 3,
                         "name": "lang",
-                        "description": "English or portuguese (Inglês ou português)",
+                        "description": "English or Portuguese (Inglês ou Português)",
                         "required": true,
                         "choices": [
                             {
@@ -268,7 +268,7 @@
                     {
                         "type": 3,
                         "name": "lang",
-                        "description": "English or portuguese (Inglês ou português)",
+                        "description": "English or Portuguese (Inglês ou Português)",
                         "required": true,
                         "choices": [
                             {

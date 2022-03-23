@@ -79,7 +79,10 @@ module.exports = class Nay extends Client {
                     delete component.label;
                     component.min_values = component.values?.at(0) || 1;
                     component.max_values = component.values?.at(1) || 1;
-                    component.options.forEach(op => op.value ??= op.label.toLowerCase());
+                    component.options.forEach(op => {
+                        if (typeof op.emoji === "string") op.emoji = { name: op.emoji };
+                        op.value ??= op.label.toLowerCase();
+                    });
                 }
                 component.custom_id = component.name;
                 delete component.name;

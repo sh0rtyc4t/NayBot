@@ -39,6 +39,14 @@ module.exports = class Prototypes extends Base {
             }
         });
 
+        // Eris Interaction
+
+        Object.defineProperty(Eris.Interaction.prototype, "author", {
+            get () {
+                return this.user || this.member.user;
+            }
+        });
+
         // Eris CommandInteraction
         Object.defineProperties(Eris.CommandInteraction.prototype, {
             "reply": {
@@ -47,10 +55,10 @@ module.exports = class Prototypes extends Base {
                 }
             },
             "createError": {
-                value (message) {
+                value (error) {
                     const embed = {
                         color: self.resolveColor(self.config.baseColor),
-                        description: `${nay.emojis.error} ┃ **${message}**`
+                        description: `${nay.emojis.error} ┃ **${error}**`
                     };
 
                     return this.createMessage({
@@ -62,9 +70,25 @@ module.exports = class Prototypes extends Base {
         });
 
         // Eris User
-        Object.defineProperty(Eris.User.prototype, "tag", {
-            get () {
-                return `${this.username}#${this.discriminator}`;
+        Object.defineProperties(Eris.User.prototype, {
+            "tag": {
+                get () {
+                    return `${this.username}#${this.discriminator}`;
+                }
+            },
+            "doc": {
+                get () {
+                    return self.db.users.doc(this.id);
+                }
+            }
+        });
+
+        // Eris Guild
+        Object.defineProperties(Eris.Guild.prototype, {
+            "doc": {
+                get () {
+                    return self.db.guilds.doc(this.id);
+                }
             }
         });
 
@@ -86,8 +110,9 @@ module.exports = class Prototypes extends Base {
                     options ||= {};
                     const listener = async interaction => {
                         if (!(interaction instanceof Eris.ComponentInteraction) || this.id !== interaction.message.id) return;
+
                         if (options.filter && !options.filter(interaction)) return;
-                        if (options.onlyAuthor && this.interaction.user.id !== interaction.member.id) return;
+                        if (options.onlyAuthor && this.interaction.user.id !== interaction.author.id) return;
                         await interaction.deferUpdate();
                         return callback(interaction);
                     };

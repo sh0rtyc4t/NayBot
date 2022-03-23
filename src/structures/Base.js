@@ -7,6 +7,9 @@ const instance = process.argv.includes("--development")
     ? "nightly"
     : "nay";
 const db = require("../modules/Database.js")(security[instance].firebaseConfig);
+const botSettings = db.collection("botSettings");
+botSettings.doc("totalCommands").create({ all: 0 })
+    .catch(Function());
 
 module.exports = class Base {
     constructor (nay) {
@@ -23,6 +26,7 @@ module.exports = class Base {
             Eris,
             path
         };
+        this.botSettings = botSettings;
     }
 
     resolvePath (...args) {

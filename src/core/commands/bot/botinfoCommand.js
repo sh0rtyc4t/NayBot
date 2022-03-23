@@ -8,7 +8,7 @@ module.exports = class BotinfoCommand extends Command {
         super(nay);
     }
 
-    async execute (interaction, t, { authorDoc, guildDoc, configDoc }) {
+    async execute (interaction, t) {
         const T = t("commands:botinfo", { returnObjects: true });
         const embeds = {
             bot: {
@@ -56,7 +56,7 @@ module.exports = class BotinfoCommand extends Command {
                     },
                     {
                         name: T.statisticsembed.fields[4],
-                        value: String((await configDoc.get()).totalCommands ?? 0).encode("fix"),
+                        value: String(await this.botSettings.doc("totalCommands").get("all") ?? 0).encode("fix"),
                         inline: true
                     },
                     {
@@ -65,12 +65,12 @@ module.exports = class BotinfoCommand extends Command {
                     },
                     {
                         name: T.statisticsembed.fields[6],
-                        value: `- ${(await guildDoc.get()).commands ?? 0}`.encode("diff"),
+                        value: `- ${await interaction.member?.guild.doc.get("commands") ?? 0}`.encode("diff"),
                         inline: true
                     },
                     {
                         name: T.statisticsembed.fields[7],
-                        value: `- ${(await authorDoc.get()).commands ?? 0}`.encode("diff"),
+                        value: `- ${await interaction.author.doc.get("commands") ?? 0}`.encode("diff"),
                         inline: true
                     }
                 ]
@@ -108,12 +108,7 @@ module.exports = class BotinfoCommand extends Command {
             }
         };
 
-        const message = await interaction.reply({
-            embed: {
-                ...this.makeBaseEmbed(T.embed.description, T.embed.title),
-                thumbnail: { url: this.nay.user.dynamicAvatarURL("png", 512) }
-            }
-        }, [
+        const message = await interaction.reply({ embed: this.makeBaseEmbed(T.embed.description, T.embed.title, this.nay.user.dynamicAvatarURL("png", 512)) }, [
             {
                 type: "menu",
                 name: "botinfomenu",
@@ -122,7 +117,7 @@ module.exports = class BotinfoCommand extends Command {
                         label: "Nay",
                         value: "bot",
                         description: T.menuoptions.first.description,
-                        emoji: { name: "💜" }
+                        emoji: "💜"
                     },
                     {
                         ...T.menuoptions.second,
