@@ -6,12 +6,10 @@ module.exports = class RemoveBatatasCommand extends Command {
     }
 
     async execute (interaction) {
-        const user = interaction.data.options[0].value;
-        const amount = interaction.data.options.at(1)?.value;
-        const userDoc = this.db.users.doc(user);
+        const userDoc = this.db.users.doc(await interaction.getOptionUser());
 
         if (!await userDoc.exists()) return interaction.createError("Usuário não existente não banco de dados");
-        await userDoc.subtract("batatas", amount);
+        await userDoc.subtract("batatas", interaction.getValue("amount"));
         interaction.reply("Removido");
     }
 

@@ -6,8 +6,7 @@ module.exports = class SayCommand extends Command {
     }
 
     execute (interaction) {
-        const text = interaction.data.options?.at(0)?.value || "ﾠ";
-        interaction.reply(text);
+        interaction.reply(interaction.getOptionValue("text") || "ﾠ");
     }
 
 };

@@ -49,6 +49,11 @@ module.exports = class Prototypes extends Base {
 
         // Eris CommandInteraction
         Object.defineProperties(Eris.CommandInteraction.prototype, {
+            "subCmdName": {
+                get () {
+                    return this.data.options?.find(o => o.type === 1)?.name || null;
+                }
+            },
             "reply": {
                 value (options, components) {
                     return nay.sendMessage(this, options, components);
@@ -65,6 +70,26 @@ module.exports = class Prototypes extends Base {
                         embeds: [embed],
                         flags: 64
                     });
+                }
+            },
+            "getOptionUser": {
+                value () {
+                    const options = this.data.options?.[0].type === 1 ? this.data.options[0].options : this.data.options;
+                    const user = options?.find(o => o.name === "user" || o.type === 6)?.value;
+                    return user ? nay.getRESTUser(user) : null;
+                }
+            },
+            "getAllOptionUsers": {
+                value (fetch) {
+                    const options = this.data.options?.[0].type === 1 ? this.data.options[0].options : this.data.options;
+                    const users = options?.filter(o => o.type === 6);
+                    return fetch ? users.map(async u => await nay.getRESTUser(u.value)) : users;
+                }
+            },
+            "getOptionValue": {
+                value (name) {
+                    const options = this.data.options?.[0].type === 1 ? this.data.options[0].options : this.data.options;
+                    return options?.find(o => o.name === name).value ?? null;
                 }
             }
         });
