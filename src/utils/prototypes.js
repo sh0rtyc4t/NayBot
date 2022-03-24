@@ -62,7 +62,7 @@ module.exports = class Prototypes extends Base {
             "createError": {
                 value (error) {
                     const embed = {
-                        color: self.resolveColor(self.config.baseColor),
+                        color: global.resolveColor(self.config.baseColor),
                         description: `${nay.emojis.error} ┃ **${error}**`
                     };
 

@@ -29,18 +29,10 @@ module.exports = class Base {
         this.botSettings = botSettings;
     }
 
-    resolvePath (...args) {
-        return path.resolve(...args);
-    }
-
-    resolveColor (color) {
-        return parseInt(color.replace("#", ""), 16);
-    }
-
     makeBaseEmbed (description, title, thumbnail) {
         return {
             title,
-            color: this.resolveColor(this.config.baseColor),
+            color: global.resolveColor(this.config.baseColor),
             description,
             timestamp: new Date(),
             thumbnail: { url: thumbnail },

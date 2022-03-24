@@ -5,7 +5,7 @@ module.exports = class EventHandler extends Base {
     constructor (nay) {
         super();
         this.nay = nay;
-        this.eventFiles = this.modules.fs.readdirSync(this.resolvePath("./src", "core/events/"));
+        this.eventFiles = this.modules.fs.readdirSync(global.resolvePath("./src", "core/events/"));
         this.events = new this.modules.Eris.Collection("events");
     }
 

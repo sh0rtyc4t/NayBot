@@ -66,7 +66,7 @@ module.exports = class Logger extends Base {
 
     dmLog (message) {
         const embed = {
-            color: this.resolveColor(this.config.baseColor),
+            color: global.resolveColor(this.config.baseColor),
             title: `${message.author.tag} | ${message.author.id}`,
             thumbnail: { url: message.author.dynamicAvatarURL(null, 512)},
             description: (message.content || "Sem conteudo").encode("diff"),
@@ -123,12 +123,12 @@ module.exports = class Logger extends Base {
     guildLog (logType, guild) {
         const gcEmbed = {
             ...this.makeBaseEmbed(null, "Novo Servidor"),
-            color: this.resolveColor("#0AE714")
+            color: global.resolveColor("#0AE714")
         };
 
         const gdEmbed = {
             ...this.makeBaseEmbed(null, "Servidor Perdido"),
-            color: this.resolveColor("#F02525")
+            color: global.resolveColor("#F02525")
         };
 
         const embed = {
@@ -161,12 +161,12 @@ module.exports = class Logger extends Base {
     alertLog (stack, type = "Error", interaction) {
         const warnEmbed = {
             title: `${stack.name || "Warn"} x1`,
-            color: this.resolveColor("#fce35a")
+            color: global.resolveColor("#fce35a")
         };
 
         const errorEmbed = {
             title: `${stack.name || "Error"} x1`,
-            color: this.resolveColor("#FF0000")
+            color: global.resolveColor("#FF0000")
         };
 
         let embed = type === "Error"

@@ -5,7 +5,6 @@ const cld = require("child_process");
 const fs = require("fs");
 const bytes = require("bytes");
 const os = require("os");
-const hd = require("humanize-duration");
 const osu = require("node-os-utils");
 const Event = require("../../structures/Event");
 

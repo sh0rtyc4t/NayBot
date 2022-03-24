@@ -7,12 +7,15 @@ module.exports = class CldCommand extends Command {
     }
 
     execute (interaction) {
-        let cmdline = interaction.data.options?.at(0)?.value;
+        let cmdline = interaction.getOptionValue("args");
+        const startTime = Date.now();
         cmdline ??= process.platform === "linux" ? "pwd" : "echo %cd%";
 
         cld(cmdline, (err, stdout, stderr) => {
-            console.log(err, stderr);
+            if (err) return interaction.createError(`Erro na execução do comando:\n\`${err}\``);
+            if (stderr) return interaction.createError(`Erro na execução da linha de comando:\n\`${err}\``);
             const embed = this.makeBaseEmbed(stdout.encode("sh"), "Executado com sucesso");
+            embed.footer.text = `${Date.now() - startTime}.ms`;
             interaction.reply({ embed });
         });
     }

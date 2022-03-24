@@ -20,7 +20,7 @@
         },
         "nayembed": {
             "title": "Hello, i am Nay!",
-            "description": "I'm a Discord bot, created by `{{ownerTag}}` ago **{{createdAt}}** with the intention of entertaining and divert the members of the servers where i am!",
+            "description": "I'm a Discord bot, created by `{{ownerTag}}` in **{{createdAt}}** with the intention of entertaining and divert the members of the servers where i am!",
             "fields": [
                 {
                     "name": "Acknowledgments",

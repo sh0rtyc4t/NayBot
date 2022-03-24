@@ -15,7 +15,7 @@ module.exports = class BotinfoCommand extends Command {
                 title: T.nayembed.title,
                 description: t("commands:botinfo.nayembed.description", {
                     ownerTag: (await this.nay.getRESTUser(this.config.owners[0])).tag,
-                    createdAt: this.nay.formattedCreatedAt(t)
+                    createdAt: global.makeDiscordDate(this.nay.user.createdAt, "lld")
                 }),
                 fields: [
                     {
@@ -28,7 +28,7 @@ module.exports = class BotinfoCommand extends Command {
                     }
                 ],
                 thumbnail: { url: this.nay.user.dynamicAvatarURL("png", 512) },
-                color: this.resolveColor("#FF0000")
+                color: global.resolveColor("#FF0000")
             },
 
             statistics: {
@@ -92,7 +92,7 @@ module.exports = class BotinfoCommand extends Command {
                     },
                     {
                         name: "Uptime",
-                        value: `- ${this.nay.formattedUptime(t)}`.encode("diff")
+                        value: global.makeDiscordDate(this.nay.startTime, "re")
                     },
                     {
                         name: T.statusembed.fields[2],

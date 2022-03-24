@@ -1,6 +1,5 @@
 const { Client, Constants } = require("eris");
 const { readFileSync } = require("fs");
-const hd = require("humanize-duration");
 const CommandHandler = require("../core/handlers/CommandHandler.js");
 const EventHandler = require("../core/handlers/EventHandler.js");
 const Logger = require("./Logger.js");
@@ -19,35 +18,6 @@ module.exports = class Nay extends Client {
 
     get usersCount () {
         return this.guilds.reduce((ac, g) => ac += g.memberCount, 0);
-    }
-
-    formattedUptime (t) {
-        return hd(this.uptime, {
-            language: t.lng.slice(0, 2),
-            units: [
-                "d",
-                "h",
-                "m",
-                "s"
-            ],
-            round: true,
-            largest: 2,
-            delimiter: t("misc:humanize-date-delimiter")
-        });
-    }
-
-    formattedCreatedAt (t) {
-        return hd(Date.now() - this.user.createdAt, {
-            language: t.lng.slice(0, 2),
-            units: [
-                "y",
-                "mo",
-                "d"
-            ],
-            round: true,
-            largest: 2,
-            delimiter: t("misc:humanize-date-delimiter")
-        });
     }
 
     sendMessage (channel, options, components) {

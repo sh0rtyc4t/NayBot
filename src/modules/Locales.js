@@ -16,9 +16,9 @@ module.exports = class Locales extends Base {
                 "errors",
                 "misc"
             ],
-            preload: this.modules.fs.readdirSync(this.resolvePath("./src", "locales")),
+            preload: this.modules.fs.readdirSync(global.resolvePath("./src", "locales")),
             fallbackLng: "en-US",
-            backend: { loadPath: this.resolvePath("./src", "locales", "{{lng}}/{{ns}}.json") },
+            backend: { loadPath: global.resolvePath("./src", "locales", "{{lng}}/{{ns}}.json") },
             interpolation: { escapeValue: false },
             returnEmptyString: false
         });

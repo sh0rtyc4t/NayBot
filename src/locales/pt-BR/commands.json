@@ -20,7 +20,7 @@
         },
         "nayembed": {
             "title": "Olá, eu sou a Nay!",
-            "description": "Sou uma bot do Discord, criada pelo `{{ownerTag}}` há **{{createdAt}}** com a intenção de entreter e divertir os membros dos servidores onde eu estou!",
+            "description": "Sou uma bot do Discord, criada pelo `{{ownerTag}}` em **{{createdAt}}** com a intenção de entreter e divertir os membros dos servidores onde eu estou!",
             "fields": [
                 {
                     "name": "Agradecimentos",
