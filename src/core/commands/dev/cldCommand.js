@@ -15,7 +15,7 @@ module.exports = class CldCommand extends Command {
             if (err) return interaction.createError(`Erro na execução do comando:\n\`${err}\``);
             if (stderr) return interaction.createError(`Erro na execução da linha de comando:\n\`${err}\``);
             const embed = this.makeBaseEmbed(stdout.encode("sh"), "Executado com sucesso");
-            embed.footer.text = `${Date.now() - startTime}.ms`;
+            embed.footer.text = `${Date.now() - startTime}ms`;
             interaction.reply({ embed });
         });
     }
