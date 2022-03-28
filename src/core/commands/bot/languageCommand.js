@@ -7,7 +7,6 @@ module.exports = class LanguageCommand extends Command {
 
     execute (interaction) {
         const selectedLang = interaction.getOptionValue("lang");
-
         if (interaction.subCmdName === "guild" && interaction.guildID) {
             const langEmbeds = {
                 "pt-BR": this.makeBaseEmbed(":flag_br: Agora neste servidor eu falo Português Brasileiro, hehe", "pt-BR"),
@@ -27,7 +26,7 @@ module.exports = class LanguageCommand extends Command {
             };
             langEmbeds["en-US"].footer.text = "(warning: Translations may not be 100% correct)";
 
-            interaction.author.update({ locale: selectedLang });
+            interaction.author.doc.update({ locale: selectedLang });
             interaction.reply({ embed: langEmbeds[selectedLang] });
         }
     }
