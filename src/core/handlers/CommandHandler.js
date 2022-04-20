@@ -19,7 +19,6 @@ module.exports = class CommandHandler extends Base {
         const command = await this.getCommandByName(commandName, guildID);
         const commandObj = commands.find(c => c.name === commandName);
         if (!commandObj) return true;
-
         return JSON.stringify({
             description: commandObj.description,
             default_permission: !commandObj.acess.forDevs,

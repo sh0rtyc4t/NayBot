@@ -1,3 +1,6 @@
 {
-    "commandNotFound": "Este comando não está registrado em minha lista. Talvez ele seja um comando de teste ou ainda não esteja pronto."
+    "commandNotFound": "Este comando não está registrado em minha lista. Talvez ele seja um comando de teste ou ainda não esteja pronto.",
+    "noValidJson": "Por favor, mande um JSON valido",
+    "timeOver": "O tempo acabou!",
+    "cancel": "Comando cancelado"
 }

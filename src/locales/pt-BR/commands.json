@@ -56,5 +56,51 @@
             "title": "Batatas",
             "description": "**{{tag}}** tem `{{batatas}}` batatas no armazém"
         }
+    },
+    "embed": {
+        "embed1": {
+            "title": "Faça uma Embed",
+            "description": "Selecione abaixo a forma que você deseja fazer a embed:"
+        },
+        "but2": {
+            "label": "Por menssagens"
+        },
+        "messages": {
+            "sendJson": "Mande o JSON da sua embed"
+        },
+        "questions": {
+            "title": {
+                "description": "Mande o título da embed",
+                "image": ""
+            },
+            "description": {
+                "description": "Mande a descrição da embed",
+                "image": ""
+            },
+            "color": {
+                "description": "Mande a cor da embed",
+                "image": ""
+            },
+            "thumbnail": {
+                "description": "Mande a thumbnail da embed em imagem, por arquivo ou URL",
+                "image": ""
+            },
+            "image": {
+                "description": "Mande a imagem da embed em imagem, por arquivo ou URL",
+                "image": ""
+            },
+            "footer": {
+                "description": "Mande o footer da embed, separando o icone do texto usando **|**\nExemplo: `text | https://meu.icone.png`",
+                "image": ""
+            },
+            "author": {
+                "description": "Mande o author da embed, separando o icone do texto usando **|**\nExemplo: `text | https://meu.icone.png`",
+                "image": ""
+            },
+            "fields": {
+                "description": "Mande os fields da embed, separando o nome do valor usando **|**, e separando cada field por **;**\nExemplo: `nome | valor ; nome2 | valor2`",
+                "image": ""
+            }   
+        }
     }
 }

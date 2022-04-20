@@ -3,9 +3,7 @@ const settings = require("../../config/settings.json");
 const fs = require("fs");
 const Eris = require("eris");
 const path = require("path");
-const instance = process.argv.includes("--development")
-    ? "nightly"
-    : "nay";
+const instance = process.argv.includes("--development") ? "nightly" : "nay";
 const db = require("../modules/Database.js")(security[instance].firebaseConfig);
 const botSettings = db.collection("botSettings");
 botSettings.doc("totalCommands").create({ all: 0 })

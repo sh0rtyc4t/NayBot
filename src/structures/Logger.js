@@ -49,17 +49,17 @@ module.exports = class Logger extends Base {
         let message = null;
         isDev = isDev ? " de desenvolvedores" : " global";
         switch (logType) {
-        case "create":
-            message = `Criando o comando${isDev}: "${commandName}"`;
-            break;
+            case "create":
+                message = `Criando o comando${isDev}: "${commandName}"`;
+                break;
 
-        case "update":
-            message = `Atualizando configurações no comando${isDev}: "${commandName}"`;
-            break;
+            case "update":
+                message = `Atualizando configurações no comando${isDev}: "${commandName}"`;
+                break;
 
-        case "delete":
-            message = `Deletando o comando${isDev}: "${commandName}"`;
-            break;
+            case "delete":
+                message = `Deletando o comando${isDev}: "${commandName}"`;
+                break;
         }
         console.log(`\x1B[37m\x1B[44m[ COMMAND-CONTROL ] - ${message}\x1B[49m\x1B[39m`);
     }
@@ -82,17 +82,17 @@ module.exports = class Logger extends Base {
             embed.fields = [];
             const [images, videos, files] = message.attachments.reduce((arr, el) => {
                 switch (el.content_type.split("/")[0]) {
-                case "image":
-                    arr[0].push(el);
-                    break;
+                    case "image":
+                        arr[0].push(el);
+                        break;
 
-                case "video":
-                    arr[1].push(el);
-                    break;
+                    case "video":
+                        arr[1].push(el);
+                        break;
 
-                default:
-                    arr[2].push(el);
-                    break;
+                    default:
+                        arr[2].push(el);
+                        break;
                 }
                 return arr;
             }, [

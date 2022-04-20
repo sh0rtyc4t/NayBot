@@ -6,7 +6,7 @@ global.resolvePath = function (...args) {
     return require("path").resolve(...args);
 };
 
-global.resolveColor = function (color) {
+global.resolveColor = function (color = "") {
     return parseInt(color.replace("#", ""), 16);
 };
 

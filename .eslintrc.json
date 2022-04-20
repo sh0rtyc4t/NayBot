@@ -70,7 +70,7 @@
             "warn",
             "never"
         ],
-        "function-paren-newline": "error",
+        "function-paren-newline": ["error", "consistent"],
         "generator-star-spacing": "error",
         "grouped-accessor-pairs": "error",
         "guard-for-in": "error",
@@ -81,7 +81,7 @@
             "error",
             "beside"
         ],
-        "indent": "error",
+        "indent": ["error", 4, { "SwitchCase": 1 }],
         "init-declarations": "error",
         "jsx-quotes": "error",
         "key-spacing": "error",
@@ -102,7 +102,7 @@
         "max-classes-per-file": "error",
         "max-depth": "error",
         "max-nested-callbacks": "error",
-        "max-params": "error",
+        "max-params": ["error", 4],
         "multiline-ternary": ["error", "always-multiline"],
         "new-cap": "error",
         "new-parens": "error",

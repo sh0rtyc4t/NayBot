@@ -284,5 +284,22 @@
                 ]
             }      
         ]
+    },
+
+    {
+        "name": "embed",
+        "description": "Make an Discord embed",
+        "help": {
+            "usage": "/embed",
+            "example": "/embed"
+        },
+        "acess": {
+            "nayPermissions": null,
+            "memberPermissions": null,
+            "forDevs": false
+        },
+        "DM": false,
+        "thread": false,
+        "dir": "utilities/embedCommand"
     }
 ]

@@ -9,12 +9,11 @@ module.exports = class BatatasCommand extends Command {
         const user = await interaction.getOptionUser() || interaction.author;
         const batatas = await user.doc.get("batatas");
 
-        interaction.reply({
+        return interaction.reply({
             embed: this.makeBaseEmbed(t("commands:batatas.embed.description", {
                 batatas: batatas || 0,
                 tag: user.tag
             }), t("commands:batatas.embed.title"), user.avatarURL)
         });
     }
-
 };

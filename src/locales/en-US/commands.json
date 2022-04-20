@@ -56,5 +56,51 @@
             "title": "Batatas",
             "description": "**{{tag}}** has `{{batatas}}` batatas in the warehouse"
         }
+    },
+    "embed": {
+        "embed1": {
+            "title": "Make Embed",
+            "description": "Select below the way you want to embed:"
+        },
+        "but2": {
+            "label": "By messages"
+        },
+        "messages": {
+            "sendJson": "Send your JSON embed"
+        },
+        "questions": {
+            "title": {
+                "description": "Send the title of the embed",
+                "image": ""
+            },
+            "description": {
+                "description": "Send the description of the embed",
+                "image": ""
+            },
+            "color": {
+                "description": "Send the embed color",
+                "image": ""
+            },
+            "thumbnail": {
+                "description": "Send the thumbnail of the embed in an image, by file or URL",
+                "image": ""
+            },
+            "image": {
+                "description": "Send the image of the embed in an image, by file or URL",
+                "image": ""
+            },
+            "footer": {
+                "description": "Send the embed footer, separating the icon from the text using **|**\nExample: `text | https://my.icon.png`",
+                "image": ""
+            },
+            "author": {
+                "description": "Send the embed author, separating the icon from the text using **|**\nExample: `text | https://my.icon.png`",
+                "image": ""
+            },
+            "fields": {
+                "description": "Send the embed fields, separating the name from the value using **|**, and separating each field by **;**\nExample: `name | value ; name2 | value2`",
+                "image": ""
+            }   
+        }
     }
 }

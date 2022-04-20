@@ -18,6 +18,13 @@ module.exports = class Prototypes extends Base {
                 get () {
                     return Boolean(this.amount <= 0);
                 }
+            },
+            "maping": {
+                value (mapFunc) {
+                    return Object.fromEntries(
+                        Object.entries(this).map(([k, v], i) => [k, mapFunc(v, k, i)])
+                    );
+                }
             }
         });
 
@@ -40,7 +47,6 @@ module.exports = class Prototypes extends Base {
         });
 
         // Eris Interaction
-
         Object.defineProperty(Eris.Interaction.prototype, "author", {
             get () {
                 return this.user || this.member.user;
@@ -117,6 +123,31 @@ module.exports = class Prototypes extends Base {
             }
         });
 
+        // Eris TextChannel
+        Object.defineProperties(Eris.TextChannel.prototype, {
+            "createMessageCollector": {
+                value (options, callback, endCallback) {
+                    options ||= {};
+                    const listener = message => {
+                        if (message.channel.id !== this.id || message.author.bot) return;
+                        if (options.filter && !options.filter(message)) return;
+                        if (options.authorID && message.author.id !== options.authorID) return;
+                        return callback(message, end);
+                    };
+
+                    nay.on("messageCreate", listener);
+                    setTimeout(end, options.time ?? 60000);
+                    function end () {
+                        nay.removeListener("messageCreate", listener);
+                        endCallback && endCallback();
+                        return endCallback = null;
+                    }
+
+                    return this;
+                }
+            }
+        });
+
         // Eris Message
         Object.defineProperties(Eris.Message.prototype, {
             "reply": {
@@ -135,21 +166,21 @@ module.exports = class Prototypes extends Base {
                     options ||= {};
                     const listener = async interaction => {
                         if (!(interaction instanceof Eris.ComponentInteraction) || this.id !== interaction.message.id) return;
+                        await interaction.deferUpdate();
 
                         if (options.filter && !options.filter(interaction)) return;
                         if (options.onlyAuthor && this.interaction.user.id !== interaction.author.id) return;
-                        await interaction.deferUpdate();
                         return callback(interaction);
                     };
 
                     nay.on("interactionCreate", listener);
                     setTimeout(() => {
                         nay.removeListener("interactionCreate", listener);
-                        options.disableOnEnd && this.edit({
+                        options.disableOnEnd && this.components.length && this.edit({
                             components: [
                                 {
                                     type: 1,
-                                    components: this.components[0].components.map(c => ({
+                                    components: this.components[0].components?.map(c => ({
                                         ...c,
                                         disabled: true
                                     }))
@@ -159,6 +190,12 @@ module.exports = class Prototypes extends Base {
                         endCallback && endCallback(this.components);
                     }, options.time ?? 60000);
                     return this;
+                }
+            },
+
+            "edify": {
+                value (options, components) {
+                    return nay.edifyMessage(this.channel.id, this.id, options, components);
                 }
             }
         });
