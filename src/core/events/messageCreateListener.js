@@ -14,14 +14,14 @@ module.exports = class MessageCreateEvent extends Event {
     }
 
     async on (message) {
-        if (!message.guildID && message.type !== 20) return this.nay.log.dmLog(message);
+        if (!message.guildID && message.type !== 20) return this.nay.hooklog.dmLog(message);
         const prefix = this.config.prefix;
         const content = message.content?.split(" ");
         const args = content.slice(1);
         const t = i18.getFixedT(message.member?.guild?.preferredLocale || "en-US");
 
         if (content[0] === `${prefix}eval` && this.config.owners.includes(message.author.id)) return this.executeEval(args, message);
-        if (message.content.match(/^\?\?./) && !message.author.bot) return message.channel.createMessage({ embed: this.makeBaseEmbed(t("misc:alert-slash"), "Changes...") });
+        if (message.content.match(/^\?\?./) && !message.author.bot) return message.channel.createMessage({ embed: this.nay.utils.makeEmbed(t("misc:alert-slash"), "Changes...") });
         if (message.channel.id === this.config.dmLogChannel && content[0] && !isNaN(content[0]) && content[0].length === 18 && !message.author.bot) {
             try {
                 const channel = await (await this.nay.getRESTUser(content[0])).getDMChannel();
@@ -59,7 +59,7 @@ module.exports = class MessageCreateEvent extends Event {
         try {
             const startTime = Date.now();
             const evalued = util.inspect(await eval(`${isStrict}\n(async()=>{\n${args.join("\n")}\n})()`), { depth }).slice(0, 3990);
-            const evalEmbed = this.makeBaseEmbed(evalued.encode("js"), "Eval");
+            const evalEmbed = this.nay.utils.makeEmbed(evalued.encode("js"), "Eval");
             evalEmbed.footer.text = `${Date.now() - startTime}ms`;
             return message.channel.createMessage({ embeds: [evalEmbed] });
         } catch (error) {

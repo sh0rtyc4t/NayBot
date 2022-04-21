@@ -7,7 +7,7 @@ module.exports = class GuildCreateEvent extends Event {
     }
 
     on (guild) {
-        this.nay.log.guildLog("create", guild);
+        this.nay.hooklog.guildLog("create", guild);
         if (!this.nay.isDev) {
             this.nay.editChannel(this.config.servercountChannel, { name: `🚀❱ Servidores - ${this.nay.guilds.size}` });
             this.nay.editChannel(this.config.membercountChannel, { name: `👥❱ Usuários - ${this.nay.usersCount}` });
@@ -23,7 +23,7 @@ module.exports = class GuildCreateEvent extends Event {
         });
 
         if (welcomeChannel) {
-            const embed = this.makeBaseEmbed(`
+            const embed = this.nay.utils.makeEmbed(`
             :flag_br: :flag_pt: Esta menssagem está na lingua padrão do servidor, administrador use \`/language guild Português BR\`
             :flag_us: :flag_gb: This message is in the server's default language, admin use \`/language guild English\`
 

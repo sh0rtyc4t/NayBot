@@ -1,6 +1,6 @@
 {
     "INSTANCE1": {
-        "firebaseConfig": {
+        "firebase": {
             // your firebase config object
         },
         "token": "",
@@ -9,7 +9,7 @@
 
     // optional
     "INSTANCE2": {
-        "firebaseConfig": {
+        "firebase": {
             // your firebase config object
         },
         "token": "",

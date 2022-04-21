@@ -1,19 +1,31 @@
-const { Client, Constants } = require("eris");
-const { readFileSync } = require("fs");
 const CommandHandler = require("../core/handlers/CommandHandler.js");
 const EventHandler = require("../core/handlers/EventHandler.js");
+const Utilities = require("../utils/utilities.js");
+const { Client, Constants } = require("eris");
+const { readFileSync } = require("fs");
 const Logger = require("./Logger.js");
+const WebhookLogger = require("./WebhookLogger.js");
 
 module.exports = class Nay extends Client {
     constructor (token, ClientOptions) {
         super(token, ClientOptions);
-        this.instance = ClientOptions.instance;
         this.cmdHand = new CommandHandler(this);
         this.evtHand = new EventHandler(this);
-        this.isDev = this.instance === "nightly";
+        this.isDev = ClientOptions.enviroment === "development";
         this.log = new Logger(this);
+        this.hooklog = new WebhookLogger(this);
         this.emojis = require("../../config/emojis.json");
         this.debugMode = process.argv.includes("--debug");
+        this.utils = new Utilities(this);
+    }
+
+    static getBot (config) {
+        return new Nay(`Bot ${config.token}`, {
+            enviroment: config.enviromentType,
+            intents: config.intents,
+            restMode: true,
+            maxShards: config.shardAmount ?? 1
+        });
     }
 
     get usersCount () {

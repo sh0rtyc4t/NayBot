@@ -68,7 +68,7 @@ module.exports = class Prototypes extends Base {
             "createError": {
                 value (error) {
                     const embed = {
-                        color: global.resolveColor(self.config.baseColor),
+                        color: this.nay.utils.resolveColor(self.config.baseColor),
                         description: `${nay.emojis.error} ┃ **${error}**`
                     };
 
@@ -214,9 +214,9 @@ module.exports = class Prototypes extends Base {
                 }
             },
 
-            "nay": {
+            "admin": {
                 get () {
-                    return this.collection("nay");
+                    return this.collection("admin");
                 }
             }
 

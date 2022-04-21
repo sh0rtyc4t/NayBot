@@ -28,7 +28,7 @@ module.exports = class InteractionCreateEvent extends Event {
                 commands: 1
             });
 
-        this.botSettings.doc("totalCommands").add("all");
+        this.db.admin.doc("data").add("totalCommands", 1);
         const t = i18.getFixedT(await authorDoc.get("locale") || await guildDoc.get("locale") || "en-US");
 
         if (!commandData?.execute) return interaction.createError(t("errors:commandNotFound"));

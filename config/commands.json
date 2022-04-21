@@ -288,7 +288,7 @@
 
     {
         "name": "embed",
-        "description": "Make an Discord embed",
+        "description": "Make an Discord   embed",
         "help": {
             "usage": "/embed",
             "example": "/embed"

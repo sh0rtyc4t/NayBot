@@ -25,7 +25,7 @@ module.exports = class EvalCommand extends Command {
 
         try {
             const evalued = util.inspect(await eval(`${strict}\n(async()=>{${code.join(" ")}})();`), { depth }).slice(0, 3990);
-            return interaction.reply({ embeds: [this.makeBaseEmbed(evalued.encode("js"), "Eval")] });
+            return interaction.reply({ embeds: [this.nay.utils.makeEmbed(evalued.encode("js"), "Eval")] });
         } catch (error) {
             return interaction.reply(`Houve um erro na execução do eval:\n\`${error}\``);
         }

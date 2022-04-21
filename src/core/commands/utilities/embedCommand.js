@@ -20,7 +20,7 @@ module.exports = class EmbedCommand extends Command {
             description: v.description,
             image: { url: v.image }
         }));
-        const embed = this.makeBaseEmbed(T.embed1.description, T.embed1.title);
+        const embed = this.nay.utils.makeEmbed(T.embed1.description, T.embed1.title);
         const message = await interaction.reply({ embed }, [
             {
                 type: "but",
@@ -61,7 +61,7 @@ module.exports = class EmbedCommand extends Command {
                     } catch {
                         return interaction.createError(t("errors:noValidJson"));
                     }
-                    userEmbed.color = global.resolveColor(userEmbed.color);
+                    userEmbed.color = this.nay.utils.resolveColor(userEmbed.color);
                     interaction.channel.createMessage({ embed: userEmbed });
                     end();
                 }, () => interaction.createError(t("errors:timeOver")));
@@ -73,7 +73,7 @@ module.exports = class EmbedCommand extends Command {
                     embed: {
                         ...questions.next().value,
                         title: "title",
-                        color: global.resolveColor("#FF0000")
+                        color: this.nay.utils.resolveColor("#FF0000")
                     }
                 });
 
@@ -95,7 +95,7 @@ module.exports = class EmbedCommand extends Command {
                             embed: {
                                 ...this.questions.timestamp,
                                 title: "timestamp",
-                                color: global.resolveColor("#FF0000")
+                                color: this.nay.utils.resolveColor("#FF0000")
                             }
                         }, [
                             {
@@ -139,7 +139,7 @@ module.exports = class EmbedCommand extends Command {
                         embed: {
                             ...questions.next().value,
                             title: comp,
-                            color: global.resolveColor("#FF0000")
+                            color: this.nay.utils.resolveColor("#FF0000")
                         },
                         components: []
                     });
@@ -189,7 +189,7 @@ module.exports = class EmbedCommand extends Command {
                 break;
 
             case "color":
-                global.resolveColor(content);
+                this.nay.utils.resolveColor(content);
                 break;
 
             case "image":

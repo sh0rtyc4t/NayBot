@@ -9,8 +9,8 @@ module.exports = class LanguageCommand extends Command {
         const selectedLang = interaction.getOptionValue("lang");
         if (interaction.subCmdName === "guild" && interaction.guildID) {
             const langEmbeds = {
-                "pt-BR": this.makeBaseEmbed(":flag_br: Agora neste servidor eu falo Português Brasileiro, hehe", "pt-BR"),
-                "en-US": this.makeBaseEmbed(":flag_us: Now in this server I speak English, eheh", "en-US")
+                "pt-BR": this.nay.utils.makeEmbed(":flag_br: Agora neste servidor eu falo Português Brasileiro, hehe", "pt-BR"),
+                "en-US": this.nay.utils.makeEmbed(":flag_us: Now in this server I speak English, eheh", "en-US")
             };
             langEmbeds["en-US"].footer.text = "(warning: Translations may not be 100% correct)";
 
@@ -21,8 +21,8 @@ module.exports = class LanguageCommand extends Command {
 
         } else {
             const langEmbeds = {
-                "pt-BR": this.makeBaseEmbed(":flag_br: Agora seu idioma é Português Brasileiro, hehe", "pt-BR"),
-                "en-US": this.makeBaseEmbed(":flag_us: Now your language is English, eheh", "en-US")
+                "pt-BR": this.nay.utils.makeEmbed(":flag_br: Agora seu idioma é Português Brasileiro, hehe", "pt-BR"),
+                "en-US": this.nay.utils.makeEmbed(":flag_us: Now your language is English, eheh", "en-US")
             };
             langEmbeds["en-US"].footer.text = "(warning: Translations may not be 100% correct)";
 

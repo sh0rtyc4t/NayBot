@@ -28,11 +28,11 @@ module.exports = class BotinfoCommand extends Command {
                     }
                 ],
                 thumbnail: { url: this.nay.user.dynamicAvatarURL("png", 512) },
-                color: global.resolveColor("#FF0000")
+                color: this.nay.utils.resolveColor("#FF0000")
             },
 
             statistics: {
-                ...this.makeBaseEmbed(null, T.statisticsembed.title),
+                ...this.nay.utils.makeEmbed(null, T.statisticsembed.title),
                 thumbnail: { url: this.nay.user.dynamicAvatarURL("png", 512) },
                 fields: [
                     {
@@ -47,7 +47,7 @@ module.exports = class BotinfoCommand extends Command {
                     },
                     {
                         name: T.statisticsembed.fields[2],
-                        value: `# ${this.nay.instance}`.encode("md")
+                        value: `# ${this.nay.enviromentType}`.encode("md")
                     },
                     {
                         name: T.statisticsembed.fields[3],
@@ -56,7 +56,7 @@ module.exports = class BotinfoCommand extends Command {
                     },
                     {
                         name: T.statisticsembed.fields[4],
-                        value: String(await this.botSettings.doc("totalCommands").get("all") ?? 0).encode("fix"),
+                        value: String(await this.db.admin.doc("data").get("totalCommands") ?? 0).encode("fix"),
                         inline: true
                     },
                     {
@@ -77,7 +77,7 @@ module.exports = class BotinfoCommand extends Command {
             },
 
             status: {
-                ...this.makeBaseEmbed(null, T.statusembed.title),
+                ...this.nay.utils.makeEmbed(null, T.statusembed.title),
                 thumbnail: { url: this.nay.user.dynamicAvatarURL("png", 512) },
                 fields: [
                     {
@@ -108,7 +108,7 @@ module.exports = class BotinfoCommand extends Command {
             }
         };
 
-        const message = await interaction.reply({ embed: this.makeBaseEmbed(T.embed.description, T.embed.title, this.nay.user.dynamicAvatarURL("png", 512)) }, [
+        const message = await interaction.reply({ embed: this.nay.utils.makeEmbed(T.embed.description, T.embed.title, this.nay.user.dynamicAvatarURL("png", 512)) }, [
             {
                 type: "menu",
                 name: "botinfomenu",

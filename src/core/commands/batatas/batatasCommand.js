@@ -10,7 +10,7 @@ module.exports = class BatatasCommand extends Command {
         const batatas = await user.doc.get("batatas");
 
         return interaction.reply({
-            embed: this.makeBaseEmbed(t("commands:batatas.embed.description", {
+            embed: this.nay.utils.makeEmbed(t("commands:batatas.embed.description", {
                 batatas: batatas || 0,
                 tag: user.tag
             }), t("commands:batatas.embed.title"), user.avatarURL)

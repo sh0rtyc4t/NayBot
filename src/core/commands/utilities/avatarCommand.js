@@ -8,7 +8,7 @@ module.exports = class AvatarCommand extends Command {
 
     async execute (interaction) {
         const user = await interaction.getOptionUser() || interaction.author;
-        const embed = this.makeBaseEmbed(null, user.tag);
+        const embed = this.nay.utils.makeEmbed(null, user.tag);
         embed.image = { url: user.dynamicAvatarURL(null, 1024) };
         interaction.reply({ embed });
     }

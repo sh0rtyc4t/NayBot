@@ -6,7 +6,6 @@ module.exports = class CommandHandler extends Base {
     constructor (nay) {
         super();
         this.nay = nay;
-        this.devGuilds = this.config.devGuilds;
         this.commands = new this.modules.Eris.Collection("commands");
     }
 
@@ -31,66 +30,67 @@ module.exports = class CommandHandler extends Base {
     }
 
     async getCommandByName (name, guildID) {
-        if (!isNaN(name)) return guildID
-            ? this.nay.getCommand(name)
-            : this.nay.getGuildCommand(name, guildID);
-        const cmds = guildID
-            ? await this.nay.getGuildCommands(guildID)
-            : await this.nay.getCommands();
-
+        if (!isNaN(name)) return guildID ? this.nay.getCommand(name) : this.nay.getGuildCommand(name, guildID);
+        const cmds = guildID ? await this.nay.getGuildCommands(guildID) : await this.nay.getCommands();
         return cmds.find(c => c.name === name) || null;
     }
 
-    async postCommand (data) {
+    async createCommand (data, guildID) {
         if (!data?.name || !data?.description) return;
-        if (await this._wasRegistred(data.name)) {
-            if (await this._wasModified(data.name)) {
-                const id = (await this.getCommandByName(data.name)).id;
-                await this.nay.editCommand(id, data);
-                return this.nay.log.commandControl("update", data.name, false);
+
+        if (await this._wasRegistred(data.name, guildID)) {
+            if (await this._wasModified(data.name, guildID)) {
+                await this.editCommand(data.name, data, guildID);
+                return this.nay.log.info(null, "commandcontroller", {
+                    actionType: "update",
+                    name: data.name,
+                    isDev: Boolean(guildID)
+                });
             }
-            return data;
+            return false;
         }
-        this.nay.createCommand(data);
-        return this.nay.log.commandControl("create", data.name, false);
-    }
 
-    async postDevCommand (data) {
-        if (!data?.name || !data?.description) return;
-        data.default_permission = false;
-
-        for (const devGuild of this.devGuilds) {
-            if (await this._wasRegistred(data.name, devGuild)) {
-                if (await this._wasModified(data.name, devGuild)) {
-                    const id = (await this.getCommandByName(data.name, devGuild)).id;
-                    this.nay.editGuildCommand(devGuild, id, data);
-                    this.nay.log.commandControl("update", data.name, true);
-                    continue;
-                }
-                continue;
-            }
-            const command = await this.nay.createGuildCommand(devGuild, data);
-            await this.nay.editCommandPermissions(devGuild, command.id, this.config.owners.map(id => ({
+        if (guildID) {
+            data.default_permission = false;
+            const command = await this.nay.createGuildCommand(guildID, data);
+            await this.nay.editCommandPermissions(guildID, command.id, this.config.owners.map(id => ({
                 id,
                 type: 2,
                 permission: true
             })));
-            this.nay.log.commandControl("create", data.name, true);
+        } else {
+            this.nay.createCommand(data);
         }
 
-        return data;
+        return this.nay.log.info(null, "commandcontroller", {
+            actionType: "create",
+            name: data.name,
+            isDev: Boolean(guildID)
+        });
+    }
+
+    async editCommand (commandName, data, guildID) {
+        const id = (await this.getCommandByName(commandName)).id;
+        await guildID ? this.nay.editGuildCommand(guildID, id, data) : this.nay.editCommand(id, data);
+        return this.nay.log.info(null, "commandcontroller", {
+            actionType: "update",
+            name: commandName,
+            isDev: Boolean(guildID)
+        });
     }
 
     async deleteCommand (commandName, guildID) {
         const id = (await this.getCommandByName(commandName, guildID)).id;
-        await guildID
-            ? this.nay.deleteGuildCommand(guildID, id)
-            : this.nay.deleteCommand(id);
-        return this.nay.log.commandControl("delete", commandName, Boolean(guildID));
+        await guildID ? this.nay.deleteGuildCommand(guildID, id) : this.nay.deleteCommand(id);
+        return this.nay.log.info(null, "commandcontroller", {
+            actionType: "delete",
+            name: commandName,
+            isDev: Boolean(guildID)
+        });
     }
 
     async deleteAll ({ guildCommands, globalCommands }) {
-        if (guildCommands) for (const devGuild of this.devGuilds) {
+        if (guildCommands) for (const devGuild of this.config.devGuilds) {
             for (const { id } of await this.nay.getGuildCommands(devGuild)) await this.deleteCommand(id, devGuild);
         }
 
@@ -100,6 +100,7 @@ module.exports = class CommandHandler extends Base {
 
     deployAll () {
         for (const { name, description, acess, options, DM, dir } of commands) {
+            let CmdFile = null;
             const data = {
                 name,
                 description,
@@ -107,11 +108,9 @@ module.exports = class CommandHandler extends Base {
                 dm_permission: DM
             };
 
-            acess.forDevs
-                ? this.postDevCommand(data)
-                : this.postCommand(data);
-
-            let CmdFile = null;
+            if (acess.forDevs) {
+                for (const devGuild of this.config.devGuilds) this.createCommand(data, devGuild);
+            } else this.createCommand(data);
 
             try {
                 CmdFile = require(`../commands/${dir}.js`);
