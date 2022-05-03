@@ -1,10 +1,6 @@
 const Event = require("../../structures/Event");
 
 module.exports = class GuildDeleteEvent extends Event {
-    constructor (nay) {
-        super(nay);
-    }
-
     on (guild) {
         this.nay.hooklog.guildLog("delete", guild);
         if (!this.nay.isDev) {

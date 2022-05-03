@@ -2,10 +2,6 @@ const util = require("util");
 const Command = require("../../../structures/Command");
 
 module.exports = class EvalCommand extends Command {
-    constructor (nay) {
-        super(nay);
-    }
-
     async execute (interaction) {
         // eslint-disable-next-line prefer-const
         let { strict, noreturn, depth, code } = interaction.data.options.reduce((a, o) => {

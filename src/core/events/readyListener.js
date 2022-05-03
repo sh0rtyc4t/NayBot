@@ -1,10 +1,6 @@
 const Event = require("../../structures/Event");
 
 module.exports = class ReadyEvent extends Event {
-    constructor (nay) {
-        super(nay);
-    }
-
     async once () {
         await this.nay.hooklog.init();
         this.nay.cmdHand.deployAll();

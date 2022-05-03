@@ -2,10 +2,6 @@ const Command = require("../../../structures/Command");
 const cld = require("child_process").exec;
 
 module.exports = class CldCommand extends Command {
-    constructor (nay) {
-        super(nay);
-    }
-
     execute (interaction) {
         let cmdline = interaction.getOptionValue("args");
         const startTime = Date.now();

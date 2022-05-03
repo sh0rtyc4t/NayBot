@@ -1,10 +1,6 @@
 const Command = require("../../../structures/Command");
 
 module.exports = class LanguageCommand extends Command {
-    constructor (nay) {
-        super(nay);
-    }
-
     execute (interaction) {
         const selectedLang = interaction.getOptionValue("lang");
         if (interaction.subCmdName === "guild" && interaction.guildID) {

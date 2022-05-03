@@ -9,10 +9,6 @@ const osu = require("node-os-utils");
 const Event = require("../../structures/Event");
 
 module.exports = class MessageCreateEvent extends Event {
-    constructor (nay) {
-        super(nay);
-    }
-
     async on (message) {
         if (!message.guildID && message.type !== 20) return this.nay.hooklog.dmLog(message);
         const prefix = this.config.prefix;

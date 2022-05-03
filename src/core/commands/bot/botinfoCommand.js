@@ -4,10 +4,6 @@ const pkg = require("../../../../package.json");
 const Command = require("../../../structures/Command");
 
 module.exports = class BotinfoCommand extends Command {
-    constructor (nay) {
-        super(nay);
-    }
-
     async execute (interaction, t) {
         const T = t("commands:botinfo", { returnObjects: true });
         const embeds = {

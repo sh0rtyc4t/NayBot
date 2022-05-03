@@ -2,10 +2,6 @@ const Event = require("../../structures/Event");
 const i18 = require("i18next");
 
 module.exports = class InteractionCreateEvent extends Event {
-    constructor (nay) {
-        super(nay);
-    }
-
     async on (interaction) {
         if (!(interaction instanceof this.modules.Eris.CommandInteraction)) return;
         const authorDoc = interaction.author.doc;

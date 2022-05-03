@@ -1,10 +1,6 @@
 const Base = require("./Base");
 
 module.exports = class WebhookLogger extends Base {
-    constructor (nay) {
-        super(nay);
-    }
-
     async _getHooks (channelID, limit = 1) {
         const channel = await this.nay.getChannel(channelID);
         if (!channel) return [];

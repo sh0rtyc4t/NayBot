@@ -1,10 +1,6 @@
 const Base = require("../structures/Base");
 
 module.exports = class NayUtils extends Base {
-    constructor (nay) {
-        super(nay);
-    }
-
     makeEmbed (description, title, thumbnail) {
         return {
             title,

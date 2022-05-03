@@ -2,10 +2,6 @@ const Event = require("../../structures/Event");
 const i18 = require("i18next");
 
 module.exports = class GuildCreateEvent extends Event {
-    constructor (nay) {
-        super(nay);
-    }
-
     on (guild) {
         this.nay.hooklog.guildLog("create", guild);
         if (!this.nay.isDev) {

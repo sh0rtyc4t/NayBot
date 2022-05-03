@@ -1,10 +1,6 @@
 const Command = require("../../../structures/Command");
 
 module.exports = class BatatasCommand extends Command {
-    constructor (nay) {
-        super(nay);
-    }
-
     async execute (interaction, t) {
         const user = await interaction.getOptionUser() || interaction.author;
         const batatas = await user.doc.get("batatas");

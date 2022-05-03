@@ -1,10 +1,6 @@
 const Command = require("../../../structures/Command");
 
 module.exports = class AddPotatosCommand extends Command {
-    constructor (nay) {
-        super(nay);
-    }
-
     async execute (interaction) {
         const userDoc = this.db.users.doc(await interaction.getOptionUser());
 
