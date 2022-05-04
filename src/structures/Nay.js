@@ -36,7 +36,6 @@ module.exports = class Nay extends Client {
         if (typeof options === "string" || typeof options === "number") options = { content: String(options) };
 
         const files = [];
-
         if (components) {
 
             for (const component of components) {
@@ -130,6 +129,6 @@ module.exports = class Nay extends Client {
 
         }
 
-        this.editMessage(channelID, messageID, options);
+        return this.editMessage(channelID, messageID, options);
     }
 };

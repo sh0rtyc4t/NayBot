@@ -4,7 +4,7 @@ module.exports = class EmbedCommand extends Command {
     constructor (nay) {
         super(nay);
         this.questions = null;
-        this.embedComponents = ["title", "description", "color", "thumbnail", "image", "footer", "author", "timestamp", "fields"];
+        this.embedComponents = ["title", "description", "color", "thumbnail", "image", "footer", "author", "fields", "timestamp"];
         this.mountedEmbed = {
             footer: {},
             author: {},
@@ -67,7 +67,6 @@ module.exports = class EmbedCommand extends Command {
                 }, () => interaction.createError(t("errors:timeOver")));
 
             } else {
-
                 const questions = this.embedQuestions();
                 const msg = await interaction.reply({
                     embed: {
@@ -75,75 +74,60 @@ module.exports = class EmbedCommand extends Command {
                         title: "title",
                         color: this.nay.utils.resolveColor("#FF0000")
                     }
-                });
+                }, [
+                    {
+                        type: "but",
+                        label: "Cancel",
+                        style: "red",
+                        name: "cancel"
+                    }
+                ]);
 
-                message.channel.createMessageCollector({
+                const collector = message.channel.createMessageCollector({
                     filter: i => i.author.id === interaction.author.id,
                     time: 60000 * 3
                 }, async (m, end) => {
-                    if (m.content.toLowerCase() === "cancel" || m.content.toLowerCase() === "cancelar") {
-                        end();
-                        return interaction.createError(t("errors:cancel"));
-                    }
-                    this.defineComponent(m.content);
-                    this.embedComponents = this.embedComponents.slice(1);
-                    const comp = this.embedComponents[0];
+                    if (m.content.toLowerCase() === "cancel" || m.content.toLowerCase() === "cancelar") return end("cancel");
                     m.delete();
+                    this.defineComponent(m.content);
+                    const comp = this.embedComponents[0];
 
-                    if (this.embedComponents[0] === "timestamp") {
-                        await msg.edify({
+                    if (comp === "timestamp") {
+                        const result = await this.nay.utils.yesNoPoll(msg, i => i.author.id === interaction.author.id, {
                             embed: {
                                 ...this.questions.timestamp,
                                 title: "timestamp",
                                 color: this.nay.utils.resolveColor("#FF0000")
                             }
-                        }, [
-                            {
-                                type: "but",
-                                style: "green",
-                                name: "yes",
-                                emoji: {
-                                    name: "nayOk",
-                                    id: "917754100798590986"
-                                }
-                            },
-                            {
-                                type: "but",
-                                style: "red",
-                                name: "no",
-                                emoji: {
-                                    name: "nayError",
-                                    id: "917761409566244894"
-                                }
-                            }
-                        ]);
-
-                        const responseBut = () => new Promise(res => {
-                            msg.createComponentCollector({
-                                filter: i => i.author.id === interaction.author.id,
-                                disableOnEnd: true
-                            }, i => res(i.data.custom_id === "yes" ? new Date() : null));
                         });
-                        const timestamp = await responseBut();
-                        if (timestamp) this.mountedEmbed.timestamp = timestamp;
-
-                        this.embedComponents = this.embedComponents.slice(1);
+                        result && this.defineComponent(new Date());
                     }
 
-                    if (!this.embedComponents.length) {
-                        await interaction.channel.createMessage({ embed: this.mountedEmbed });
-                        return end();
-                    }
+                    if (!this.embedComponents.length) return end("end");
 
                     return msg.edify({
                         embed: {
                             ...questions.next().value,
                             title: comp,
                             color: this.nay.utils.resolveColor("#FF0000")
-                        },
-                        components: []
+                        }
                     });
-                }, () => interaction.createError(t("errors:timeOver")));
+                }, reason => {
+                    if (reason === "cancel") {
+                        return interaction.createError(t("errors:cancel"));
+                    } else if (reason === "end") {
+                        return interaction.channel.createMessage({ embed: this.mountedEmbed });
+                    }
+                    return interaction.createError(t("errors:timeOver"));
+                });
+
+                msg.createComponentCollector({
+                    filter: i => i.author.id === interaction.author.id && i.data.custom_id === "cancel",
+                    time: 60000 * 3
+                }, () => {
+                    collector.end("cancel");
+                    return interaction.createError(t("errors:cancel"));
+                });
             }
         });
     }
@@ -157,6 +141,7 @@ module.exports = class EmbedCommand extends Command {
         yield this.questions.footer;
         yield this.questions.author;
         yield this.questions.fields;
+        yield this.questions.timestamp;
     }
 
     defineComponent (content) {
@@ -203,6 +188,7 @@ module.exports = class EmbedCommand extends Command {
                 this.mountedEmbed[comp] = content;
                 break;
         }
-    }
 
+        this.embedComponents = this.embedComponents.slice(1);
+    }
 };

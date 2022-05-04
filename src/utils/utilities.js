@@ -40,4 +40,38 @@ module.exports = class NayUtils extends Base {
         }
         return color;
     }
+
+    yesNoPoll (message, filter, content = {}) {
+        return new Promise(resolve => {
+            message.edify(content, [
+                {
+                    type: "but",
+                    style: "green",
+                    name: "yes",
+                    emoji: {
+                        name: "nayOk",
+                        id: "917754100798590986"
+                    }
+                },
+                {
+                    type: "but",
+                    style: "red",
+                    name: "no",
+                    emoji: {
+                        name: "nayError",
+                        id: "917761409566244894"
+                    }
+                }
+            ]).then(() => {
+                message.createComponentCollector({
+                    filter,
+                    onlyAuthor: !filter,
+                    disableOnEnd: true
+                }, button => {
+                    if (button.data.custom_id === "yes") resolve(true);
+                    else resolve(false);
+                }, () => resolve(false));
+            });
+        });
+    }
 };

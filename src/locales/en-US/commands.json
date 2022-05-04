@@ -100,7 +100,11 @@
             "fields": {
                 "description": "Send the embed fields, separating the name from the value using **|**, and separating each field by **;**\nExample: `name | value ; name2 | value2`",
                 "image": ""
-            }   
+            },
+            "timestamp": {
+                "description": "Want to use timestamp in your embed?",
+                "image": ""
+            }  
         }
     }
 }

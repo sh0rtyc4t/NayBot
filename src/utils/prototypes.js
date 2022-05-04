@@ -68,7 +68,7 @@ module.exports = class Prototypes extends Base {
             "createError": {
                 value (error) {
                     const embed = {
-                        color: this.nay.utils.resolveColor(self.config.baseColor),
+                        color: nay.utils.resolveColor(self.config.baseColor),
                         description: `${nay.emojis.error} ┃ **${error}**`
                     };
 
@@ -137,13 +137,15 @@ module.exports = class Prototypes extends Base {
 
                     nay.on("messageCreate", listener);
                     setTimeout(end, options.time ?? 60000);
-                    function end () {
+                    function end (...args) {
                         nay.removeListener("messageCreate", listener);
-                        endCallback && endCallback();
+                        endCallback && endCallback(...args);
                         return endCallback = null;
                     }
 
-                    return this;
+                    return {
+                        end
+                    };
                 }
             }
         });
@@ -166,10 +168,9 @@ module.exports = class Prototypes extends Base {
                     options ||= {};
                     const listener = async interaction => {
                         if (!(interaction instanceof Eris.ComponentInteraction) || this.id !== interaction.message.id) return;
-                        await interaction.deferUpdate();
-
                         if (options.filter && !options.filter(interaction)) return;
-                        if (options.onlyAuthor && this.interaction.user.id !== interaction.author.id) return;
+                        await interaction.deferUpdate();
+                        if (options.onlyAuthor && (this.interaction?.user.id || this.referencedMessage.interaction.user.id) !== interaction.author.id) return;
                         return callback(interaction);
                     };
 
