@@ -16,7 +16,7 @@ module.exports = class WebhookLogger extends Base {
         this.guildsHook = await this._getHooks(this.config.guildsLogChannel, 2);
     }
 
-    dmLog (message) {
+    dm (message) {
         if (!this.dmHook || !message?.author) return false;
 
         const embed = {
@@ -70,7 +70,7 @@ module.exports = class WebhookLogger extends Base {
         return this.nay.executeWebhook(this.dmHook.id, this.dmHook.token, { embed });
     }
 
-    guildLog (logType, guild) {
+    guild (logType, guild) {
         const gcEmbed = {
             ...this.nay.utils.makeEmbed(null, "Guild Join"),
             color: this.nay.utils.resolveColor("#0AE714")
@@ -105,7 +105,7 @@ module.exports = class WebhookLogger extends Base {
         return this.nay.executeWebhook(hook.id, hook.token, { embed });
     }
 
-    alertLog (stack, type = "Error") {
+    alert (stack, type = "Error") {
         const warnEmbed = {
             title: `${stack.name || "Warn"} x1`,
             color: this.nay.utils.resolveColor("#fce35a")

@@ -1,8 +1,8 @@
 const Event = require("../../structures/Event");
 
 module.exports = class WarnEvent extends Event {
-    on (warn, interaction) {
-        return this.nay.log.warn(warn, { webhook: true }, interaction);
+    on (warn) {
+        this.nay.log.warn(warn);
+        return this.nay.hooklog.alert(warn, "Warn");
     }
-
 };

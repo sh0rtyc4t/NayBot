@@ -3,7 +3,7 @@ const i18 = require("i18next");
 
 module.exports = class GuildCreateEvent extends Event {
     on (guild) {
-        this.nay.hooklog.guildLog("create", guild);
+        this.nay.hooklog.guild("create", guild);
         if (!this.nay.isDev) {
             this.nay.editChannel(this.config.servercountChannel, { name: `🚀❱ Servidores - ${this.nay.guilds.size}` });
             this.nay.editChannel(this.config.membercountChannel, { name: `👥❱ Usuários - ${this.nay.usersCount}` });
