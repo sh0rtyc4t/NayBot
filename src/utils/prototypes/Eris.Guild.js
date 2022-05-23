@@ -1,4 +1,4 @@
-const db = require("../../modules/Database.js").db;
+const db = require("../../core/database/index.js");
 
 module.exports = {
 

@@ -1,8 +1,8 @@
 require("./src/utils/prototypes.js");
 require("./src/utils/globals.js");
-require("./src/modules/Database.js").init();
+require("./src/core/database/index.js");
 const config = require("./src/structures/Configurations.js");
-const Locales = require("./src/modules/Locales.js");
+const Locales = require("./src/services/Locales.js");
 const Nay = require("./src/structures/Nay.js");
 const nay = Nay.getBot(config);
 
