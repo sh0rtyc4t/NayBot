@@ -132,7 +132,7 @@ module.exports = class EmbedCommand extends Command {
         });
     }
 
-    *embedQuestions () {
+    * embedQuestions () {
         yield this.questions.title;
         yield this.questions.description;
         yield this.questions.color;
